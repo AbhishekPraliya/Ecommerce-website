@@ -1,0 +1,76 @@
+.slider-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.slider-wrapper {
+    display: flex;
+    margin: 10px 0.3vw;
+    gap: 0.3vw;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slider-image {
+    width: 33vw;
+    /* margin-left: 0.5vw;
+    margin-right: 0.5vw; */
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.slider-dots {
+    text-align: center;
+    align-items: center;
+    margin-top: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dot {
+    height: 5px;
+    width: 5px;
+    margin: 0 4px;
+    margin-bottom: 1.5px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: inline-block;
+    /* transition: background-color 0.3s; */
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.dot.active {
+    height: 8px;
+    width: 8px;
+    margin-bottom: 0px;
+    background-color: #333;
+}
+
+@media screen and (max-width: 768px) {
+    .dot {
+        height: 3px;
+        width: 3px;
+    }
+    .dot.active{
+        height: 6px;
+        width: 6px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .dot {
+        height: 2px;
+        width: 2px;
+        margin-bottom: 1px;
+    }
+    .dot.active{
+        height: 4px;
+        width: 4px;
+        margin-bottom: 0px;
+    }
+}
