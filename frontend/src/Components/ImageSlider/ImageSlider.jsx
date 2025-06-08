@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./ImageSlider.css";
 
 const slideImages = [
@@ -27,8 +27,11 @@ function ImageSlider() {
 
     return (
         <div className="slider-container">
+            <div className="slider-label">
+                <p className="slider-label-text">{"Best Deal For You"}</p>
+            </div>
             <div
-                className="slider-wrapper"
+                className={`slider-wrapper ${slideImages.length < 3 ? 'slider-wrapper-center' : ''}`}
                 style={{ transform: `translateX(-${currentIndex * 33.3}vw)` }}
             >
                 {slideImages.map((img, index) => (

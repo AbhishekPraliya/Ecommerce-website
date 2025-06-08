@@ -2,7 +2,19 @@
     width: 100%;
     overflow: hidden;
     position: relative;
-    padding-bottom: 20px;
+    padding: 20px 0px;
+}
+
+.slider-label{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+.slider-label .slider-label-text{
+    margin: 0px;
+    padding: 0px;
+    font-size: x-large;
+    font-weight: bold;
 }
 
 .slider-wrapper {
@@ -11,9 +23,14 @@
     gap: 0.3vw;
     transition: transform 0.5s ease-in-out;
 }
+.slider-wrapper.slider-wrapper-center {
+    display: flex;
+    justify-content: center;
+}
 
 .slider-image {
     width: 33vw;
+    /* display: none ; */
     /* margin-left: 0.5vw;
     margin-right: 0.5vw; */
     flex-shrink: 0;
