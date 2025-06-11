@@ -1,10 +1,10 @@
-
 // import { useEffect } from 'react';
 import './App.css'
 import Navbar from './Components/Navbar/Navbar'
-// import ShopPage from './Components/ShopPage/ShopPage'
 import HomePage from './Pages/HomePage/HomePage.jsx'
-import ProductPage from './Pages/ProductPage/ProductPage.jsx'
+import { Route, Routes } from 'react-router-dom'
+import CollectionPage from './Pages/CollectionPage/CollectionPage.jsx'
+
 function App() {
 
   // useEffect(() => {
@@ -27,11 +27,20 @@ function App() {
       <Navbar />
 
       <div className="main">
-        {/* <HomePage/> */}
-        <ProductPage/>
+        <Routes>
 
-        {/* <ShopPage /> */}
-
+          <Route path="/" element={<HomePage />} />
+          <Route path="/collection/:collectionId" element={<CollectionPage />} />
+          
+          
+          
+          <Route path="*" element={
+            <div className="not-found"
+              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'full' }}>
+              <h1>Page Not Found</h1>
+            </div>
+          } />
+        </Routes>
       </div>
     </>
   )

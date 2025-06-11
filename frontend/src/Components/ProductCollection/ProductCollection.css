@@ -1,0 +1,20 @@
+/* Container flex layout */
+.main-container {
+    display: flex;
+}
+
+/* Product card grid layout */
+.product-list-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    flex: 1;
+}
+
+/* 2-column layout on small screens */
+@media (max-width: 800px) {
+    .product-list-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
