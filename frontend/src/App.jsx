@@ -4,7 +4,7 @@ import './App.css'
 import Navbar from './Components/Navbar/Navbar'
 // import ShopPage from './Components/ShopPage/ShopPage'
 import HomePage from './Pages/HomePage/HomePage.jsx'
-
+import ProductPage from './Pages/ProductPage/ProductPage.jsx'
 function App() {
 
   // useEffect(() => {
@@ -17,6 +17,7 @@ function App() {
   //     newFavicon.href = '/new-favicon.png';
   //     document.head.appendChild(newFavicon);
   //   }
+      // document.title = 'Welcome to the Vibe';
   // }, []);
   
   // TODO: Add dark mode toggle
@@ -26,7 +27,8 @@ function App() {
       <Navbar />
 
       <div className="main">
-        <HomePage/>
+        {/* <HomePage/> */}
+        <ProductPage/>
 
         {/* <ShopPage /> */}
 

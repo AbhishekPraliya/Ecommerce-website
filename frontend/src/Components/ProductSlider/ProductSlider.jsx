@@ -3,6 +3,7 @@ import './ProductSlider.css';
 import { ChevronRight } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 import ProductCard from '../ProductCard/ProductCard.jsx';
+import {useNavigate} from 'react-router-dom';
 
 const products = [
     {
@@ -251,6 +252,7 @@ const products = [
 
 const ProductSlider = () => {
     const scrollRef = useRef();
+    const navigate = useNavigate();
 
     const scroll = (direction) => {
         const containerWidth = scrollRef.current.offsetWidth;
@@ -290,6 +292,13 @@ const ProductSlider = () => {
                 </div>
 
                 <button className="arrow right" onClick={() => scroll('right')}><ChevronRight className='arrow-icon'/></button>
+                
+                <div className='bottom-label'>
+                    <p
+                        className='bottom-label-text'
+                        onClick={()=>navigate('/products-category')}
+                    >Discover More</p>
+                </div>
             </div>
         </>
     );

@@ -35,3 +35,43 @@
     font-size: 1.2rem;
     color: #333;
 }
+
+@media screen and (max-width: 768px) {
+    .welcome-header {
+        height: 60vh;
+    }
+    .text-box {
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+    }
+
+    .text-box h1 {
+        font-size: 2rem;
+        color: #000;
+    }
+
+    .text-box p {
+        margin-top: 0.5rem;
+        font-size: 1.2rem;
+        color: #333;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .welcome-header {
+        height: 50vh;
+    }
+    .text-box {
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+    }
+
+    .text-box h1 {
+        font-size: 1.5rem;
+    }
+
+    .text-box p {
+        margin-top: 0.5rem;
+        font-size: 1rem;
+    }
+}

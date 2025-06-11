@@ -62,5 +62,18 @@
 .arrow.right {
     right: 8px;
 }
-
+.bottom-label{
+    display: flex;
+    justify-content: center;
+}
+.bottom-label .bottom-label-text{
+    font-size: medium;
+    font-weight: 500;
+    margin: 10px;
+    cursor: pointer;
+    color: #0097ee;
+    padding: 10px;
+    text-decoration: underline;
+    text-underline-position: below;
+}
 

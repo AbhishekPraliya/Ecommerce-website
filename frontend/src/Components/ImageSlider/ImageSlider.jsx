@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./ImageSlider.css";
-
+import AdvertisementPanel from "../AdvertisementPanel/AdvertisementPanel"
 const slideImages = [
     "slide-image.png",
     "slide-image.png",
@@ -26,6 +26,7 @@ function ImageSlider() {
     }, [resetPoint]);
 
     return (
+    <div className="image-slider">
         <div className="slider-container">
             <div className="slider-label">
                 <p className="slider-label-text">{"Best Deal For You"}</p>
@@ -54,6 +55,8 @@ function ImageSlider() {
                 ))}
             </div>
         </div>
+        <AdvertisementPanel />
+    </div>
     );
 }
 

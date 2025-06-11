@@ -3,9 +3,9 @@ import "./AdvertisementPanel.css";
 
 const SALE_END_DATE = new Date("2025-06-10T23:59:59"); // ← Change to your desired sale end time
 
-const AdvertisementPanel = () => {
+const AdvertisementPanel = ({ offerImage}) => {
     const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
-    const offerImage = "./offer-image1.png"; // Ensure image is in the correct folder
+    // const offerImage = "./offer-image1.png"; // Ensure image is in the correct folder
 
     function getTimeRemaining() {
         const now = new Date();
@@ -31,9 +31,9 @@ const AdvertisementPanel = () => {
 
     return (
         <div className="advertisement-panel">
-            <div className="offer-image-div">
+            {offerImage && (<div className="offer-image-div">
                 <img src={offerImage} alt="Offer" className="offer-image" />
-            </div>
+            </div>)}
 
             <div className="offer-label">
                 <p className="offer-label-text">{"Deal Expires In"}</p>

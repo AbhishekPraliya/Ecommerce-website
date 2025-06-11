@@ -73,15 +73,15 @@ const Navbar = () => {
                     <Link to="/" className="top-nav-links">
                         <ShoppingBag className="icon"  onClick={() => setMenuOpen(!menuOpen)}/>
                     </Link>
-                    <Link to="/" className="top-nav-links menu-icon">
-                        <Menu className="menu-icon icon" onClick={() => setMenuOpen(!menuOpen)} />
-                    </Link>
                     
                 </div>
             </div>
 
             {/* Bottom Navbar */}
             <div className={`bottom-nav ${menuOpen ? "open" : ""}`}>
+                <div to="/" className="menu-icon">
+                    <Menu className="menu-icon icon" onClick={() => setMenuOpen(!menuOpen)} />
+                </div>
                 <div className="bottom-nav-switch-box">
                     <button className="button active">MEN</button>
                     <button className="button active">WOMEN</button>
@@ -103,7 +103,6 @@ const Navbar = () => {
                             <Link to="#" className="bottom-link-items">{item}</Link>
                         </div>
                     ))}
-                    
                 </div>
             </div>
         </>
