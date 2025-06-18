@@ -1,11 +1,14 @@
+import "./ProductCollection.css"
 import { useDataStore } from "../../Store/useDataStore"
 import ProductCard from "../ProductCard/ProductCard"
-import "./ProductCollection.css"
+import ProductCollectionHeader from "../ProductCollectionHeader/ProductCollectionHeader.jsx"
 const ProductCollection = () => {
     const { products } = useDataStore();
     console.log(products);
     
     return (
+    <div className="product-collection-container">
+        <ProductCollectionHeader searchTerm="Tshirts"/>
         <div className={`product-list-container`}>
             {/* Product cards here */}
             {products.map((product, index) => (
@@ -14,6 +17,7 @@ const ProductCollection = () => {
             </div>
             ))}
         </div>
+    </div>
     )
 }
 

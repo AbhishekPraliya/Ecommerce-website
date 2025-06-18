@@ -1,7 +1,7 @@
 // sidebar.jsx
 import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
-import { Filter, ListFilter, ChevronUp, ChevronDown, CheckCircle, Circle } from "lucide-react";
+import { Filter, ListFilter, ChevronUp, ChevronDown, CheckCircle, Circle, LucideSortDesc } from "lucide-react";
 
 const FilterSectionContent = ({ title, options, selectedOptions, setSelectedOptions }) => {
   const [smallWindow, setSmallWindow] = useState(window.innerWidth < 1000);
@@ -84,13 +84,13 @@ const Sidebar = () => {
         <div className={`bottom-bar ${open?"open":""}`}>
           <div className="bottom-bar-headings">
             <div className="bar-item" >
-              <ListFilter className="icon" />
+              <LucideSortDesc className="icon" />
               <div className="bar-text">
                 <strong>Sort</strong>
               </div>
             </div>
             <div className="bar-item">
-              <Filter className="icon" />
+              <ListFilter className="icon" />
               <div className="bar-text">
                 <strong>Filter</strong>
               </div>
@@ -135,6 +135,11 @@ const Sidebar = () => {
               <button className="apply-btn"  disabled={!isAnySelected}>Apply</button>
             </div>
           </div>
+          {open &&(
+            <div
+                className={`background-hider ${open ? "active" : ""}`}
+                onClick={() => setOpen(false)}></div>
+          )}
         </div>
       ) : (
         <div className="sidebar-container desktop">

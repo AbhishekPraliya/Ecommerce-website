@@ -3,9 +3,17 @@ import { Heart, Menu, Search, ShoppingBag, User } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
+import logoSm from "../../assets/logo-sm.png";
+import { useLocation } from 'react-router-dom';
+
+
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [isSearchActive, setIsSearchActive] = useState(false)
+    const location = useLocation();
+    // Check if the current path is the home page
+    const isHomePage = location.pathname === '/';
+    const [searchBar, setSearchBar] = useState(false)
 
     return (
         <>
@@ -13,7 +21,7 @@ const Navbar = () => {
             <div className="top-nav">
                 <div className="logo-small">
                     <div className="logo-image">
-                        <img src="./logo-sm.png" alt="logo" />
+                        <img src={logoSm} alt="logo" />
                     </div>
                     <p className="text">COM</p>
                 </div>
@@ -35,12 +43,12 @@ const Navbar = () => {
                     </div>
                 </div>
                 <div className="top-nav-right">
-                    <div className="search-bar-container small-screen-hidden-icon">
+                    <div className={`search-bar-container ${searchBar?"active":"small-screen-hidden-icon "}`}>
                         <div className="search-box">
                             <Search className="search-icon" />
                             <input
                                 onFocus={() => setIsSearchActive(true)}
-                                onBlur={() => setIsSearchActive(false)}
+                                onBlur={() =>{ setIsSearchActive(false), setSearchBar(false)}}
                                 type="text"
                                 className="search-input"
                                 placeholder="Search by products"
@@ -59,18 +67,18 @@ const Navbar = () => {
                             </div>
                         </div>
                     </div>
-                    <Link to="/search" className="large-screen-hidden-icon top-nav-links">
+
+                    <Link onClick={()=>setSearchBar(true)} className={`${searchBar?"search-hidden":""} large-screen-hidden-icon top-nav-links`}>
                         <Search className="icon hidden-icon" />
                     </Link>
-
-                    <Link to="#" className="nav-login top-nav-links">
+                    <Link to="#" className={`${searchBar?"search-hidden":""} nav-login top-nav-links`}>
                         <p className="small-screen-hidden-icon">Login</p>
                         <User className="icon large-screen-hidden-icon" />
                     </Link>
-                    <Link to="/" className="top-nav-links">
+                    <Link to="/" className={`${searchBar?"search-hidden":""} top-nav-links`}>
                         <Heart className="icon" />
                     </Link>
-                    <Link to="/" className="top-nav-links">
+                    <Link to="/" className={`${searchBar?"search-hidden":""} top-nav-links`}>
                         <ShoppingBag className="icon"  onClick={() => setMenuOpen(!menuOpen)}/>
                     </Link>
                     
@@ -78,7 +86,7 @@ const Navbar = () => {
             </div>
 
             {/* Bottom Navbar */}
-            <div className={`bottom-nav ${menuOpen ? "open" : ""}`}>
+            {isHomePage && (<div className={`bottom-nav ${menuOpen ? "open" : ""}`}>
                 <div to="/" className="menu-icon">
                     <Menu className="menu-icon icon" onClick={() => setMenuOpen(!menuOpen)} />
                 </div>
@@ -104,7 +112,14 @@ const Navbar = () => {
                         </div>
                     ))}
                 </div>
-            </div>
+            </div>)}
+
+            {  /* Background Hider */}
+            {menuOpen &&(
+                <div
+                    className={`background-hider ${menuOpen ? "active" : ""}`}
+                    onClick={() => setMenuOpen(false)}></div>
+            )}
         </>
     );
 };

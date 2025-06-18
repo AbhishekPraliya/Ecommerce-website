@@ -1,5 +1,5 @@
 import './ProductCard.css';
-
+import productImage from '../../assets/product-image2.png';
 
 const ProductCard = ({product}) => {
     // const product ={
@@ -12,12 +12,12 @@ const ProductCard = ({product}) => {
     //     original: '₹2,249',
     //     discount: '68% off',
     // }
-    
+    console.log(product.image);
 
     return (
         <div className="product-card" key={1}>
             <div className="image-container">
-                <img src={'./product-image2.png'} alt={product.name} />
+                <img src={productImage} alt={product.name} />
                 {product.label && <span className="fit-label">{product.label}</span>}
                 <div className="rating">★ {product.rating}</div>
             </div>

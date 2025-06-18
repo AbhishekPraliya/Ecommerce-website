@@ -395,7 +395,7 @@
         /* margin-top: 10px; */
         align-items: center;
         position: sticky;
-        top: -400px; /* Adjust based on the height of the top navbar */
+        top: 50px; /* Adjust based on the height of the top navbar */
         gap:0px;
     }
     /* //////////// */
@@ -430,7 +430,16 @@
         width: 40%;
         gap: 0px;
     }
-    
+    .background-hider.active{
+        display: block;
+        z-index: 50;
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
 }
 
 @media (max-width: 500px) {
@@ -439,6 +448,17 @@
     }
     .large-screen-hidden-icon{
         display: inline-block;
+    }
+    .search-hidden {
+        display: none;
+    }
+    .search-bar-container.active{
+        width: 60vw;
+    }
+    .search-recommendations.active{
+        width: 60vw; /* Adjust width to match search bar */
+        min-width: 50vw;
+        top: 45px;
     }
 
     .top-nav {

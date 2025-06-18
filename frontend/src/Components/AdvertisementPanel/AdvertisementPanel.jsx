@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./AdvertisementPanel.css";
 
-const SALE_END_DATE = new Date("2025-06-10T23:59:59"); // ← Change to your desired sale end time
+const SALE_END_DATE = new Date("2025-07-10T23:59:59"); // ← Change to your desired sale end time
 
 const AdvertisementPanel = ({ offerImage}) => {
     const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
