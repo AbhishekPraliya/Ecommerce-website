@@ -1,7 +1,7 @@
 // ProductCollectionHeader.jsx
 import React, { useState } from 'react';
 import './ProductCollectionHeader.css';
-import { CheckCircle, Circle, SortAsc } from 'lucide-react'; // Lucide icon
+import { CheckCircle, Circle, LucideSortDesc, SortAsc, SortAscIcon } from 'lucide-react'; // Lucide icon
 
 const ProductCollectionHeader = ({ searchTerm = "Tshirts Man O", totalProducts = 90 }) => {
     const [sortOpen, setSortOpen] = useState(false);
@@ -36,7 +36,7 @@ const ProductCollectionHeader = ({ searchTerm = "Tshirts Man O", totalProducts =
                     className="pch-sort-button"
                     onClick={() => setSortOpen(!sortOpen)}
                 >
-                    <SortAsc size={16} />
+                    <LucideSortDesc size={20} />
                     <span className="pch-sort-label">Sort by :</span>
                     <span className="pch-sort-selected">{selectedSort}</span>
                 </button>

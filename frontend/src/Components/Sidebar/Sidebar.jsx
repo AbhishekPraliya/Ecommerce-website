@@ -52,16 +52,13 @@ const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [activeFilter, setActiveFilter] = useState('Sizes');
+  
+  const sortBy = [
+    { title: 'SortBy', options: ['Popularity','New Arrival','Price : High to Low','Price : Low to High'] }
+  ];
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 1000);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const filters = [
+  const filtersItems = [
+    { title: 'Gender', options: ['MEN', 'WOMEN', 'BOTH'] },
     { title: 'Sizes', options: ['XS', 'S', 'M', 'L', 'XL'] },
     { title: 'Brand', options: ['bewakoof®', 'bewakoof air® 1.0', 'bewakoof heavy duty® 1.0', 'instafab plus', 'mad over print'] },
     { title: 'Color', options: ['black', 'green', 'blue', 'white', 'brown','red','orange','yellow'] },
@@ -74,6 +71,17 @@ const Sidebar = () => {
     { title: 'Discount', options: ['10% or more', '20% or more', '30% or more', '40% or more', '50% or more', '60% or more', '70% or more', '80% or more'] }
   ];
 
+  const [filters, setFilters] = useState(filtersItems);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1000);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
   const handleClear = () => setSelectedOptions({});
 //   const handleApply = () => setOpen(false);
   const isAnySelected = Object.values(selectedOptions).some(arr => arr.length > 0);
@@ -83,23 +91,23 @@ const Sidebar = () => {
       {isMobile ? (
         <div className={`bottom-bar ${open?"open":""}`}>
           <div className="bottom-bar-headings">
-            <div className="bar-item" >
+            <div className="bar-item" onClick={()=>{setActiveFilter('SortBy'); setOpen(true);setFilters(sortBy)}}>
               <LucideSortDesc className="icon" />
               <div className="bar-text">
                 <strong>Sort</strong>
               </div>
             </div>
-            <div className="bar-item">
+            <div className="bar-item" onClick={()=>{setActiveFilter('Gender'); setOpen(true);setFilters(filtersItems)}}>
               <ListFilter className="icon" />
               <div className="bar-text">
                 <strong>Filter</strong>
               </div>
             </div>
-            <div className="close-icon">
+            <div className="close-icon" onClick={() => setOpen(prev=>!prev)} >
               {open?(
-                  <ChevronDown className="icon" onClick={() => setOpen(false)} />
+                  <ChevronDown className="icon" />
                 ):(
-                  <ChevronUp className="icon" onClick={() => setOpen(true)} />
+                  <ChevronUp className="icon" />
                 )}
             </div>
           </div>
@@ -132,7 +140,7 @@ const Sidebar = () => {
             </div>
             <div className="bottom-bar-footer">
               <button className="clear-btn" onClick={handleClear} disabled={!isAnySelected}>Clear All</button>
-              <button className="apply-btn"  disabled={!isAnySelected}>Apply</button>
+              <button className="apply-btn"  disabled={!isAnySelected} onClick={()=>setOpen(false)}>Apply</button>
             </div>
           </div>
           {open &&(
@@ -144,7 +152,7 @@ const Sidebar = () => {
       ) : (
         <div className="sidebar-container desktop">
           <h3 className="filter-heading">Filters</h3>
-          {filters.map((filter, index) => (
+          {filtersItems.map((filter, index) => (
             <div className="desktop-filter-section" key={index}>
               <h4>{filter.title}</h4>
               <FilterSectionContent

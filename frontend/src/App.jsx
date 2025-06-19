@@ -4,6 +4,7 @@ import Navbar from './Components/Navbar/Navbar'
 import HomePage from './Pages/HomePage/HomePage.jsx'
 import { Route, Routes } from 'react-router-dom'
 import CollectionPage from './Pages/CollectionPage/CollectionPage.jsx'
+import ProductPage from './Pages/ProductPage/ProductPage.jsx'
 
 function App() {
 
@@ -31,15 +32,18 @@ function App() {
 
           <Route path="/" element={<HomePage />} />
           <Route path="/collection/:collectionId" element={<CollectionPage />} />
+          <Route path="/product/:productId" element={<ProductPage />} />
           
           
           
-          <Route path="*" element={
+          {/* <Route path="*" element={
             <div className="not-found"
               style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'full' }}>
               <h1>Page Not Found</h1>
             </div>
-          } />
+          } /> */}
+
+
         </Routes>
       </div>
     </>

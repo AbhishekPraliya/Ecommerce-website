@@ -206,9 +206,16 @@
   z-index: 1000;
   box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.05);
 }
+@media (max-width: 500px) {
+  .bottom-bar-headings{
+    padding: 5px 0px;
+  }
+}
 
 .close-icon{
-  padding:10px;
+  width: 30px;
+  padding:10px 20px;
+  cursor: pointer;
 }
 
 .bar-item {
