@@ -117,7 +117,7 @@ const Navbar = () => {
             {  /* Background Hider */}
             {menuOpen &&(
                 <div
-                    className={`background-hider ${menuOpen ? "active" : ""}`}
+                    className={`nav-background-hider ${menuOpen ? "active" : ""}`}
                     onClick={() => setMenuOpen(false)}></div>
             )}
         </>

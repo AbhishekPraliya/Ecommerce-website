@@ -5,6 +5,7 @@ import HomePage from './Pages/HomePage/HomePage.jsx'
 import { Route, Routes } from 'react-router-dom'
 import CollectionPage from './Pages/CollectionPage/CollectionPage.jsx'
 import ProductPage from './Pages/ProductPage/ProductPage.jsx'
+import Footer from './Components/Footer/Footer.jsx'
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
 
 
         </Routes>
+        <Footer/>
       </div>
     </>
   )

@@ -51,9 +51,9 @@ const ProductImageContainer = () => {
         <div className={`pic-wrapper ${isMobile ? 'mobile' : ''}`}>
             {!isMobile && (
                 <div className="thumb-section">
-                    <button className="arrow-btn" onClick={showPrevImage}>
+                    <div className="arrow-btn" onClick={showPrevImage}>
                         <ChevronUp />
-                    </button>
+                    </div>
 
                     <div className="thumb-list vertical">
                         {visibleImages.map((img, idx) => {
@@ -69,25 +69,25 @@ const ProductImageContainer = () => {
                         })}
                     </div>
 
-                    <button className="arrow-btn" onClick={showNextImage}>
+                    <div className="arrow-btn" onClick={showNextImage}>
                         <ChevronDown />
-                    </button>
+                    </div>
                 </div>
             )}
 
             <div className="main-img-section">
-                <button className="side-arrow left" onClick={showPrevImage}>
-                    <ChevronLeft />
-                </button>
+                <div className="side-arrow left" onClick={showPrevImage}>
+                    <ChevronLeft className='side-arrow-icon'/>
+                </div>
 
                 <div
                     className="main-img-box"
                     style={{ backgroundImage: `url(${images[currentIndex]})` }}
                 ></div>
 
-                <button className="side-arrow right" onClick={showNextImage}>
-                    <ChevronRight />
-                </button>
+                <div className="side-arrow right" onClick={showNextImage}>
+                    <ChevronRight className='side-arrow-icon'/>
+                </div>
 
                 {isMobile && (
                     <div className="thumb-list horizontal-scroll">

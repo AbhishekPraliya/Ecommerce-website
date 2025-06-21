@@ -430,7 +430,7 @@
         width: 40%;
         gap: 0px;
     }
-    .background-hider.active{
+    .nav-background-hider.active{
         display: block;
         z-index: 50;
         position: fixed;
@@ -438,7 +438,7 @@
         height: 100vh;
         top: 0;
         left: 0;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.5);
     }
 }
 

@@ -207,9 +207,12 @@
   box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.05);
 }
 @media (max-width: 500px) {
-  .bottom-bar-headings{
-    padding: 5px 0px;
+  .bottom-bar{
+    bottom: -50vh;
   }
+  /* .bottom-bar-headings{
+    padding: 5px 0px;
+  } */
 }
 
 .close-icon{
@@ -246,7 +249,7 @@
   color: #555;
 }
 
-.background-hider.active{
+.bottom-bar-background-hider.active{
     display: block;
     z-index: 50;
     position: fixed;
@@ -254,5 +257,5 @@
     height: 100vh;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.5);
 }

@@ -145,7 +145,7 @@ const Sidebar = () => {
           </div>
           {open &&(
             <div
-                className={`background-hider ${open ? "active" : ""}`}
+                className={`bottom-bar-background-hider ${open ? "active" : ""}`}
                 onClick={() => setOpen(false)}></div>
           )}
         </div>

@@ -1,7 +1,9 @@
 import './ProductCard.css';
 import productImage from '../../assets/product-image2.png';
+import {useNavigate} from "react-router-dom"
 
 const ProductCard = ({product}) => {
+    const navigate = useNavigate();
     // const product ={
     //     image: './product-image2.png',
     //     label: 'OVERSIZED FIT',
@@ -15,7 +17,7 @@ const ProductCard = ({product}) => {
     console.log(product.image);
 
     return (
-        <div className="product-card" key={1}>
+        <div className="product-card" onClick={()=>navigate("/product/product1")}>
             <div className="image-container">
                 <img src={productImage} alt={product.name} />
                 {product.label && <span className="fit-label">{product.label}</span>}

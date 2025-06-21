@@ -36,7 +36,7 @@ const ProductCollectionHeader = ({ searchTerm = "Tshirts Man O", totalProducts =
                     className="pch-sort-button"
                     onClick={() => setSortOpen(!sortOpen)}
                 >
-                    <LucideSortDesc size={20} />
+                    <LucideSortDesc size={20} className='sort-icon' />
                     <span className="pch-sort-label">Sort by :</span>
                     <span className="pch-sort-selected">{selectedSort}</span>
                 </button>
@@ -61,7 +61,7 @@ const ProductCollectionHeader = ({ searchTerm = "Tshirts Man O", totalProducts =
                 )}
                 {sortOpen &&(
                     <div
-                        className={`background-hider ${sortOpen ? "active" : ""}`}
+                        className={`sortby-background-hider ${sortOpen ? "active" : ""}`}
                         onClick={() => setSortOpen(false)}></div>
                 )}
             </div>
