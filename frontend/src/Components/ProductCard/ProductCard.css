@@ -9,7 +9,7 @@
     transition: transform 0.2s ease;
 }
 
-.product-card:hover {
+.hover-true:hover {
     transform: translateY(-4px);
 }
 
@@ -57,11 +57,24 @@
     gap: 0px;
 }
 
+.product-details-brand-heart{
+    display: flex;
+    justify-content: space-between;
+}
+
 .brand-name {
     font-size: 14px;
     font-weight: 600;
     color: #333;
     margin: 2px 0;
+    flex-grow: 5;
+}
+.product-details-icon-box{
+    display: flex;
+    padding: 5px;
+    flex-grow: 1;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .product-name {

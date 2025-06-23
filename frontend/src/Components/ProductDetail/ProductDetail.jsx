@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./ProductDetail.css";
-import { Heart, Star } from "lucide-react";
+import { Heart, ShoppingBag, Star } from "lucide-react";
 
 const productDetails = {
     brand: "Bewakoof®",
@@ -100,7 +100,7 @@ const ProductDetail = () => {
             </div>
 
             <div className="action-buttons">
-                <div className="add-btn">ADD TO BAG</div>
+                <div className="add-btn"><ShoppingBag size={16}/> ADD TO BAG</div>
                 <div className="wishlist-btn"><Heart size={16}/> WISHLIST</div>
             </div>
 

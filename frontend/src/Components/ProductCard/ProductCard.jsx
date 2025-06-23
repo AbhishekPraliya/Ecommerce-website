@@ -1,30 +1,34 @@
 import './ProductCard.css';
 import productImage from '../../assets/product-image2.png';
 import {useNavigate} from "react-router-dom"
+import { Heart } from 'lucide-react';
 
-const ProductCard = ({product}) => {
+const ProductCard = ({product,WishListActive}) => {
     const navigate = useNavigate();
-    // const product ={
-    //     image: './product-image2.png',
-    //     label: 'OVERSIZED FIT',
-    //     rating: '4.5',
-    //     brand: 'Bewakoof®',
-    //     name: "Men's Blue Be Yourself Graphic...",
-    //     price: '₹699',
-    //     original: '₹2,249',
-    //     discount: '68% off',
-    // }
-    console.log(product.image);
 
     return (
-        <div className="product-card" onClick={()=>navigate("/product/product1")}>
+        <div className={`product-card ${WishListActive?"":"hover-true"}`} onClick={()=>navigate("/product/product1")}>
             <div className="image-container">
                 <img src={productImage} alt={product.name} />
                 {product.label && <span className="fit-label">{product.label}</span>}
                 <div className="rating">★ {product.rating}</div>
             </div>
             <div className="product-details">
-                <h2 className="brand-name">{product.brand}</h2>
+                <div className='product-details-brand-heart'>
+                    <h2 className="brand-name">{product.brand}</h2>
+                    <div
+                        onClick={(e) => {
+                            e.stopPropagation();
+                        }}
+                        className='product-details-icon-box'
+                    >
+                        <Heart
+                            className='product-details-heart-icon'
+                            color={`${product.like?"red":"black"}`}
+                            fill={`${product.like?"red":"transparent"}`}
+                        />
+                    </div>
+                </div>
                 <p className="product-name">{product.name}</p>
                 <div className="price-section">
                     <span className="price">{product.price}</span>

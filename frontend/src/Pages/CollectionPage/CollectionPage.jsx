@@ -1,9 +1,10 @@
-import Sidebar from '../../Components/Sidebar/sidebar'
+import Sidebar from '../../Components/Sidebar/Sidebar.jsx'
 import ProductCollection from '../../Components/ProductCollection/ProductCollection'
+import "./CollectionPage.css"
 
 const CollectionPage = () => {
     return (
-        <div className="main-container">
+        <div className="collection-page-main-container">
             <Sidebar/>
             <ProductCollection/>
 

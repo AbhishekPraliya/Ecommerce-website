@@ -5,6 +5,8 @@
     max-width: 600px;
     margin: auto;
     align-items: center;
+    position: sticky;
+    top: 5rem;
 }
 
 .thumb-section {

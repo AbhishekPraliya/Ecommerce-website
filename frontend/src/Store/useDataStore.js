@@ -11,6 +11,7 @@ export const useDataStore = create((set,get)=>({
             price: '₹699',
             original: '₹2,249',
             discount: '68% off',
+            like:true,
         },
         {
             image: './product-image2.png',
@@ -31,6 +32,7 @@ export const useDataStore = create((set,get)=>({
             price: '₹449',
             original: '₹1,349',
             discount: '66% off',
+            like:true,
         },
         {
             image: './product-image2.png',
@@ -51,6 +53,7 @@ export const useDataStore = create((set,get)=>({
             price: '₹699',
             original: '₹2,249',
             discount: '68% off',
+            like:true,
         },
         {
             image: './product-image2.png',

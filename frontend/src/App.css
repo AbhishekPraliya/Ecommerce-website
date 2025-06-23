@@ -1,11 +1,32 @@
 * {
-  /* overflow-y: scroll; */
+  user-select: none;
+  -webkit-user-select: none; /* Safari/Chrome */
+  -ms-user-select: none;     /* IE/Edge */
+  -webkit-touch-callout: none;
+
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+
+
+  /* overflow: scroll; */
   scrollbar-width: none;      /* Firefox */
   -ms-overflow-style: none;   /* IE 10+ */
 }
 
 *::-webkit-scrollbar {
   display: none;              /* Chrome, Safari, Opera */
+}
+
+div{
+  user-select: none;
+  -webkit-user-select: none; /* Safari/Chrome */
+  -ms-user-select: none;     /* IE/Edge */
+  -webkit-touch-callout: none;
+  
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 #root {

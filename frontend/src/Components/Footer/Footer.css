@@ -111,14 +111,24 @@
 }
 
 @media (max-width: 500px) {
-
+    
     .footer-block,
     .footer-section {
         flex: 1 1 100%;
     }
-
+    
     .external-links {
         text-align: left;
         margin-top: 1rem;
+    }
+}
+@media (max-width: 350px) {
+    .subscribe-box{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .subscribe-box button{
+        width: fit-content;
+        margin: auto;
     }
 }

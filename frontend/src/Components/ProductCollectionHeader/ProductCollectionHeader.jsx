@@ -1,9 +1,22 @@
 // ProductCollectionHeader.jsx
 import React, { useState } from 'react';
 import './ProductCollectionHeader.css';
-import { CheckCircle, Circle, LucideSortDesc, SortAsc, SortAscIcon } from 'lucide-react'; // Lucide icon
+import { CheckCircle, Circle, LucideSortDesc } from 'lucide-react'; // Lucide icon
+import { useLocation } from 'react-router-dom';
 
-const ProductCollectionHeader = ({ searchTerm = "Tshirts Man O", totalProducts = 90 }) => {
+const ProductCollectionHeader = ({  totalProducts = 90, sortByDisable }) => {
+    const { pathname, search } = useLocation();
+    let searchQuery;
+    if(pathname.split("/")[1]==="search"){
+        const queryParams = new URLSearchParams(search);
+        searchQuery = queryParams.get('q');
+    }
+
+    const pathnameArr=pathname.split("/");
+    const headingName=pathnameArr[pathnameArr.length-1];
+    const collectionHeading=headingName.charAt(0).toUpperCase() + headingName.slice(1)
+    console.log(collectionHeading);
+
     const [sortOpen, setSortOpen] = useState(false);
     const [selectedSort, setSelectedSort] = useState('New Arrival');
 
@@ -25,13 +38,14 @@ const ProductCollectionHeader = ({ searchTerm = "Tshirts Man O", totalProducts =
             {/* Left side */}
             <div className="pch-left">
                 <h2 className="pch-title">
-                    Search Results For : <span className="pch-term">"{searchTerm}"</span>
+                    <span className="pch-term">{collectionHeading}</span>
+                    {searchQuery && <span className="pch-term">Search Results For : "{searchQuery.split('+').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}"</span>}
                     <span className="pch-count">({totalProducts} Products)</span>
                 </h2>
             </div>
 
             {/* Right side - Sort dropdown */}
-            <div className="pch-right">
+            {!sortByDisable && (<div className="pch-right">
                 <button
                     className="pch-sort-button"
                     onClick={() => setSortOpen(!sortOpen)}
@@ -64,7 +78,7 @@ const ProductCollectionHeader = ({ searchTerm = "Tshirts Man O", totalProducts =
                         className={`sortby-background-hider ${sortOpen ? "active" : ""}`}
                         onClick={() => setSortOpen(false)}></div>
                 )}
-            </div>
+            </div>)}
         </div>
     );
 };

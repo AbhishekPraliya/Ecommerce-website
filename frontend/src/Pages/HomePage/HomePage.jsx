@@ -9,13 +9,7 @@ import { ArrowUp } from 'lucide-react';
 
 function HomePage() {
     const [listCount, setListCount] = useState(1);
-    const [showTop, setShowTop] = useState(false);
     const containerRef = useRef(null);
-
-    // Scroll to top
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
 
     // Scroll event to load more and toggle back-to-top
     useEffect(() => {
@@ -27,8 +21,6 @@ function HomePage() {
                 setListCount((prev) => prev + 1);
             }
 
-            // Toggle back-to-top button
-            setShowTop(scrollTop > 300);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -60,11 +52,6 @@ function HomePage() {
             <WelcomeHeader />
             {renderBlocks()}
 
-            {showTop && (
-                <button className="back-to-top" onClick={scrollToTop}>
-                    <ArrowUp className='arrow-up' />
-                </button>
-            )}
         </div>
     );
 }

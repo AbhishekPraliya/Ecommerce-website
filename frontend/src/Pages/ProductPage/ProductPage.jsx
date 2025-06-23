@@ -7,12 +7,12 @@ const ProductPage = () => {
   return (
     <div className='product-box'>
       <div className='product-container'>
-        <selection className="product-image-container">
+        <section className="product-image-container">
           <ProductImageContainer/>
-        </selection>
-        <selection className="product-details-component">
+        </section>
+        <section className="product-details-component">
           <ProductDetail/>
-        </selection>
+        </section>
       </div>
       <ProductSlider/>
     </div>

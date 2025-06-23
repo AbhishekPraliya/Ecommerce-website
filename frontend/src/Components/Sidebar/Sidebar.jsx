@@ -47,6 +47,8 @@ const FilterSectionContent = ({ title, options, selectedOptions, setSelectedOpti
   );
 };
 
+
+
 const Sidebar = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1000);
   const [open, setOpen] = useState(false);
@@ -86,31 +88,40 @@ const Sidebar = () => {
 //   const handleApply = () => setOpen(false);
   const isAnySelected = Object.values(selectedOptions).some(arr => arr.length > 0);
 
+  const BottomBarHeading=()=>{
+  return(
+    <div className="bottom-bar-headings">
+      <div className="bar-item" onClick={()=>{setActiveFilter('SortBy'); setOpen(true);setFilters(sortBy)}}>
+        <LucideSortDesc className="icon" />
+        <div className="bar-text">
+          <strong>Sort</strong>
+        </div>
+      </div>
+      <div className="bar-item" onClick={()=>{setActiveFilter('Gender'); setOpen(true);setFilters(filtersItems)}}>
+        <ListFilter className="icon" />
+        <div className="bar-text">
+          <strong>Filter</strong>
+        </div>
+      </div>
+      <div className="close-icon" onClick={() => setOpen(prev=>!prev)} >
+        {open?(
+            <ChevronDown className="icon" />
+          ):(
+            <ChevronUp className="icon" />
+          )}
+      </div>
+    </div>
+  )
+}
+
   return (
     <>
+      <div className='top-heading-filter-sort'>
+        <BottomBarHeading />
+      </div>
       {isMobile ? (
         <div className={`bottom-bar ${open?"open":""}`}>
-          <div className="bottom-bar-headings">
-            <div className="bar-item" onClick={()=>{setActiveFilter('SortBy'); setOpen(true);setFilters(sortBy)}}>
-              <LucideSortDesc className="icon" />
-              <div className="bar-text">
-                <strong>Sort</strong>
-              </div>
-            </div>
-            <div className="bar-item" onClick={()=>{setActiveFilter('Gender'); setOpen(true);setFilters(filtersItems)}}>
-              <ListFilter className="icon" />
-              <div className="bar-text">
-                <strong>Filter</strong>
-              </div>
-            </div>
-            <div className="close-icon" onClick={() => setOpen(prev=>!prev)} >
-              {open?(
-                  <ChevronDown className="icon" />
-                ):(
-                  <ChevronUp className="icon" />
-                )}
-            </div>
-          </div>
+          <BottomBarHeading/>
           <div className={`bottom-bar-container ${open?"open":""}`}>
             <div className="filter-titles">
               <ul>

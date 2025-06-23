@@ -6,6 +6,10 @@ import { Route, Routes } from 'react-router-dom'
 import CollectionPage from './Pages/CollectionPage/CollectionPage.jsx'
 import ProductPage from './Pages/ProductPage/ProductPage.jsx'
 import Footer from './Components/Footer/Footer.jsx'
+import ScrollToTop from './Components/ScrollToTop/ScrollToTop.jsx'
+import MyAccount from './Pages/AccountPage/MyAccount.jsx'
+import WishList from './Pages/WishList/WishList.jsx'
+import CartPage from './Pages/CartPage/CartPage.jsx'
 
 function App() {
 
@@ -26,15 +30,17 @@ function App() {
   // console.log(window.matchMedia('(prefers-color-scheme: dark)'))
   return (
     <>
-      <Navbar />
 
+      <Navbar />
       <div className="main">
         <Routes>
-
           <Route path="/" element={<HomePage />} />
           <Route path="/collection/:collectionId" element={<CollectionPage />} />
+          <Route path="/search" element={<CollectionPage />} />
           <Route path="/product/:productId" element={<ProductPage />} />
-          
+          <Route path="/myaccount" element={<MyAccount />} />
+          <Route path="/wishlist" element={<WishList />} />
+          <Route path="/cart" element={<CartPage />} />
           
           
           {/* <Route path="*" element={
@@ -43,10 +49,9 @@ function App() {
               <h1>Page Not Found</h1>
             </div>
           } /> */}
-
-
         </Routes>
         <Footer/>
+        <ScrollToTop/>
       </div>
     </>
   )
