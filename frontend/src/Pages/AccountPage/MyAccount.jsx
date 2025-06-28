@@ -3,21 +3,20 @@ import './MyAccount.css';
 import {
     LogOut, User, CreditCard, Wallet, MapPin, HelpCircle, Shirt, BookOpen, Users
 } from 'lucide-react';
-
-const userData = {
-    userName: "Abhishek",
-    email: "abhishekdamla14@gmail.com",
-    phone: "7206273890",
-    userImage: "" // Use a valid image URL or keep empty for fallback
-};
+import alternativeProfileImg from "../../assets/alternative-profile-image.png"
+import { useAuth0 } from "@auth0/auth0-react";
 
 const MyAccount = () => {
-    const firstLetter = userData.userName?.charAt(0).toUpperCase();
-
+    const {user,logout} = useAuth0();
+    const firstLetter = user?.name?.charAt(0).toUpperCase();
+    const userData = {
+        phone: "7206273890",
+    };
+    
     const boxes = [
         { icon: <Shirt />, title: "My Orders", desc: "View, Modify And Track Orders" },
         { icon: <CreditCard />, title: "My Payments", desc: "View And Modify Payment Methods" },
-        { icon: <Wallet />, title: "My Wallet", desc: "Bewakoof Wallet History And Redeemed Gift Cards" },
+        { icon: <Wallet />, title: "My Wallet", desc: "My Wallet History And Redeemed Gift Cards" },
         { icon: <MapPin />, title: "My Addresses", desc: "Edit, Add Or Remove Addresses" },
         { icon: <User />, title: "My Profile", desc: "Edit Personal Info And Change Password" },
         { icon: <HelpCircle />, title: "Help & Support", desc: "Reach Out To Us" },
@@ -34,26 +33,26 @@ const MyAccount = () => {
                 <div className="menu-item"><Wallet /> My Wallet</div>
                 <div className="menu-item"><MapPin /> My Addresses</div>
                 <div className="menu-item"><User /> My Profile</div>
-                <div className="menu-item logout"><LogOut /> Logout</div>
+                <div className="menu-item logout" onClick={()=>logout()}><LogOut /> Logout</div>
             </div>
 
             <div className="account-main">
                 <div className="account-header">
                     <div className='account-avatar-info'>
                         <div className="user-avatar">
-                            {userData.userImage ? (
-                                <img src={userData.userImage} alt="User" />
+                            {user?.picture ? (
+                                <img src={user?.picture || alternativeProfileImg} alt="User" />
                             ) : (
                                 <div className="fallback-avatar">{firstLetter}</div>
                             )}
                         </div>
                         <div className="user-info">
-                            <div className="user-name">{userData.userName}</div>
-                            <div className="user-email">{userData.email}</div>
+                            <div className="user-name">{user?.name || "-----"}</div>
+                            <div className="user-email">{user?.email || "-----@---.com"}</div>
                             <div className="user-phone">{userData.phone}</div>
                         </div>
                     </div>
-                    <button className="edit-profile">LogOut</button>
+                    <button className="edit-profile" onClick={()=>logout()}>LogOut</button>
                 </div>
 
                 <div className="account-grid">

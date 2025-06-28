@@ -10,8 +10,12 @@ import ScrollToTop from './Components/ScrollToTop/ScrollToTop.jsx'
 import MyAccount from './Pages/AccountPage/MyAccount.jsx'
 import WishList from './Pages/WishList/WishList.jsx'
 import CartPage from './Pages/CartPage/CartPage.jsx'
+import LoginPage from './Pages/LoginPage/LoginPage.jsx'
+// import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
+  // const {user} = useAuth0();
+  // const navigate = useNavigate();
 
   // useEffect(() => {
   //   const favicon = document.querySelector("link[rel~='icon']");
@@ -31,7 +35,7 @@ function App() {
   return (
     <>
 
-      <Navbar />
+      <Navbar/>
       <div className="main">
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -40,7 +44,8 @@ function App() {
           <Route path="/product/:productId" element={<ProductPage />} />
           <Route path="/myaccount" element={<MyAccount />} />
           <Route path="/wishlist" element={<WishList />} />
-          <Route path="/cart" element={<CartPage />} />
+          <Route path="/cart" element={<CartPage />}/>
+          <Route path="/login" element={<LoginPage/>} />
           
           
           {/* <Route path="*" element={

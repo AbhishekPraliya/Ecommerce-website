@@ -256,6 +256,22 @@
     color: #555;
     flex-shrink: 0;
 }
+.top-nav-image-link{
+    height: 28px;
+    width: 28px;
+    display: flex;
+    border: solid #55555561 1px;
+    border-radius: 50%;
+
+}
+.top-nav-image-link .top-nav-profile-image{
+    /* flex: 1; */
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    text-align: center;
+    object-fit: cover;
+}
 
 .icon {
     cursor: pointer;
@@ -468,10 +484,14 @@
         font-size: medium;
     }
 
-    .icon {
+    .top-nav-link .icon {
         margin: 0px;
         margin-left: 5px;
         width: 20px;
+    }
+    .top-nav-image-link{
+        height: 26px;
+        width: 26px;
     }
 
     .nav-links {

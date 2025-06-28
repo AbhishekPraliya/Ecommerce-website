@@ -76,7 +76,14 @@ const ProductImageContainer = () => {
             )}
 
             <div className="main-img-section">
-                <div className="side-arrow left" onClick={showPrevImage}>
+                <div
+                    style={{
+                        userSelect: 'none',
+                        WebkitUserSelect: 'none', // Chrome, Safari
+                        MozUserSelect: 'none',    // Firefox
+                        msUserSelect: 'none'      // IE/Edge
+                    }}
+                    className="side-arrow left" onClick={showPrevImage}>
                     <ChevronLeft className='side-arrow-icon'/>
                 </div>
 
@@ -85,7 +92,14 @@ const ProductImageContainer = () => {
                     style={{ backgroundImage: `url(${images[currentIndex]})` }}
                 ></div>
 
-                <div className="side-arrow right" onClick={showNextImage}>
+                <div
+                    style={{
+                        userSelect: 'none',
+                        WebkitUserSelect: 'none', // Chrome, Safari
+                        MozUserSelect: 'none',    // Firefox
+                        msUserSelect: 'none'      // IE/Edge
+                    }}
+                    className="side-arrow right" onClick={showNextImage}>
                     <ChevronRight className='side-arrow-icon'/>
                 </div>
 

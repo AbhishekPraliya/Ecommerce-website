@@ -5,9 +5,13 @@ import { Link } from "react-router-dom";
 import "./navbar.css";
 import logoSm from "../../assets/logo-sm.png";
 import logoFull from "../../assets/logo-full.png"
+import alternativeProfileImg from "../../assets/alternative-profile-image.png"
 import { useLocation,useNavigate } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
+    const {user} = useAuth0();
+    console.log("user=",user);
     const inputRef = useRef(null);
     const [searchInput, setSearchInput] = useState("");
     const [menuOpen, setMenuOpen] = useState(false);
@@ -92,10 +96,25 @@ const Navbar = () => {
                     <Link onClick={() => setSearchBar(true)} className={`${searchBar ? "search-hidden" : ""} large-screen-hidden-icon top-nav-links`}>
                         <Search className="icon hidden-icon" />
                     </Link>
-                    <Link to="/myaccount" className={`${searchBar ? "search-hidden" : ""} nav-login top-nav-links`}>
-                        <p className="small-screen-hidden-icon">Login</p>
-                        <User className="icon large-screen-hidden-icon" />
-                    </Link>
+                    {user?(
+                        <Link to={`${user?"/myaccount":"/login"}`} className={`${searchBar ? "search-hidden" : ""} ${user.picture?"top-nav-image-link":"top-nav-links"}`}>
+                            {user.picture?(
+                                <img
+                                    src={user?.picture || alternativeProfileImg}
+                                    alt="ProfileImg"
+                                    className="top-nav-profile-image"
+                                    
+                                />
+                            ):(
+                                <User className="icon" />
+                            )}
+                        </Link>
+                    ):(
+                        <Link to={`${user?"/myaccount":"/login"}`} className={`${searchBar ? "search-hidden" : ""} nav-login top-nav-links`}>
+                            <p className="small-screen-hidden-icon">Login</p>
+                            <User className="icon large-screen-hidden-icon" />
+                        </Link>
+                    )}
                     <Link to="/wishlist" className={`${searchBar ? "search-hidden" : ""} top-nav-links`}>
                         <Heart className="icon" />
                     </Link>
