@@ -10,8 +10,7 @@ import { useLocation,useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
-    const {user} = useAuth0();
-    console.log("user=",user);
+    const {user,isLoading} = useAuth0();
     const inputRef = useRef(null);
     const [searchInput, setSearchInput] = useState("");
     const [menuOpen, setMenuOpen] = useState(false);
@@ -96,11 +95,11 @@ const Navbar = () => {
                     <Link onClick={() => setSearchBar(true)} className={`${searchBar ? "search-hidden" : ""} large-screen-hidden-icon top-nav-links`}>
                         <Search className="icon hidden-icon" />
                     </Link>
-                    {user?(
-                        <Link to={`${user?"/myaccount":"/login"}`} className={`${searchBar ? "search-hidden" : ""} ${user.picture?"top-nav-image-link":"top-nav-links"}`}>
-                            {user.picture?(
+                    {user || isLoading?(
+                        <Link to={`${user?"/myaccount":"/login"}`} className={`${searchBar ? "search-hidden" : ""} ${user?.picture?"top-nav-image-link":"top-nav-links"}`}>
+                            {user?.picture ?(
                                 <img
-                                    src={user?.picture || alternativeProfileImg}
+                                    src={ user.picture || alternativeProfileImg }
                                     alt="ProfileImg"
                                     className="top-nav-profile-image"
                                     

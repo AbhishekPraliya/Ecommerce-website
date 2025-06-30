@@ -24,6 +24,7 @@ export const useAuthStore = create((set) => ({
         set({ isCheckingAuth: true });
         try {
             const isAuthenticated = await auth0.isAuthenticated();
+            console.log(isAuthenticated);
             if (isAuthenticated) {
                 const token = await auth0.getIdTokenClaims();
                 const res = await axiosInstance.post("/auth/login", {
@@ -73,6 +74,7 @@ export const useAuthStore = create((set) => ({
         try {
             await auth0.handleRedirectCallback();
             const token = await auth0.getIdTokenClaims();
+            console.log("handleRedirectCallBack=",token);
             const res = await axiosInstance.post("/auth/login", {
                 token: token.__raw,
             });

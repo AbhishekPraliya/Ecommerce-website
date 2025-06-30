@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./LoginPage.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import googleLogo from "../../assets/google-logo.png"
@@ -12,8 +12,12 @@ const LoginPage = () => {
     const { loginWithRedirect } = useAuth0();
 
     const handleLogin = (provider) => {
-        loginWithRedirect({ connection: provider,authorizationParams:{screen_hint: "signup",},});
+        loginWithRedirect({ connection: provider,});
     };
+    useEffect(()=>{
+        loginWithRedirect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
     return (
         <div className="login-page-outer-container">

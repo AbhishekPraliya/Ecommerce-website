@@ -1,4 +1,5 @@
-// import { useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, } from 'react';
 import './App.css'
 import Navbar from './Components/Navbar/Navbar'
 import HomePage from './Pages/HomePage/HomePage.jsx'
@@ -11,9 +12,32 @@ import MyAccount from './Pages/AccountPage/MyAccount.jsx'
 import WishList from './Pages/WishList/WishList.jsx'
 import CartPage from './Pages/CartPage/CartPage.jsx'
 import LoginPage from './Pages/LoginPage/LoginPage.jsx'
-// import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
+import {axiosInstance} from "./lib/axios.js"
 
 function App() {
+  const { getAccessTokenSilently,getIdTokenClaims } = useAuth0();
+  
+
+  useEffect(() => {
+    const silentlyLogin = async () => {
+      try {
+      await getAccessTokenSilently(); // tries silent login
+        const token = await getIdTokenClaims();
+        const res = await axiosInstance.post("/auth/login", {
+            token: token.__raw,
+        });
+        console.log('res',res);
+        
+      } catch (error) {
+        console.log("Silent login failed =", error);
+      }
+    };
+    silentlyLogin();
+  }, []);
+
+
+
   // const {user} = useAuth0();
   // const navigate = useNavigate();
 

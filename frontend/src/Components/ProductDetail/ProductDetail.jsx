@@ -3,7 +3,7 @@ import "./ProductDetail.css";
 import { Heart, ShoppingBag, Star } from "lucide-react";
 
 const productDetails = {
-    brand: "Bewakoof®",
+brand: "Bewakoof®",
     name: "Men's Purple T-shirt",
     price: 399,
     originalPrice: 899,
@@ -32,6 +32,25 @@ const productDetails = {
     outOfStockSize: "3XL",
     lowStockSize: "2XL",
     offer: "Buy 3 for 999",
+    
+    keyHighlights: {
+        Design: "Graphic Print",
+        Fit: "Regular Fit",
+        Neck: "Round Neck",
+        Occasion: "Casual Wear",
+        "Sleeve Style": "Half Sleeve",
+        "Wash Care": "Gentle Machine Wash",
+    },
+
+    productDescription: "Manufacture, Care and Fit",
+
+    productRatings: [
+        { userId: "u101", userName: "Ravi", rating: 5, dateTime: "2025-06-25 14:32" },
+        { userId: "u102", userName: "Sneha", rating: 4, dateTime: "2025-06-26 10:18" },
+        { userId: "u103", userName: "Amit", rating: 3, dateTime: "2025-06-24 19:05" },
+        { userId: "u104", userName: "Meena", rating: 2, dateTime: "2025-06-23 08:45" },
+        { userId: "u105", userName: "John", rating: 1, dateTime: "2025-06-22 16:55" },
+    ],
 };
 
 const ProductDetail = () => {
