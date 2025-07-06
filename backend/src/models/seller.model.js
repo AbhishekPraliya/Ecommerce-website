@@ -32,14 +32,19 @@ const sellerSchema = new mongoose.Schema({
     },
     picture: {
         type: String,
-        default: "/avatar.jpg",
     },
     loginProvider: {
         type: String,
         enum: ["google-oauth2", "facebook", "apple", "windowslive", "email", "unknown"],
         default: "unknown",
     },
-    phoneNumber: String,
+    phoneNumber: {
+        type:String,
+    },
+    role: {
+        type: String,
+        default: "seller",
+    },
     gender: {
         type: String,
         enum: ["male", "female", "other"],
@@ -66,12 +71,10 @@ const sellerSchema = new mongoose.Schema({
 
     paymentGatewayDetails: paymentGatewaySchema,
 
-    brands: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Brand",
-        },
-    ],
+    business:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Business",
+    },
 }, { timestamps: true });
 
 const Seller = mongoose.model("Seller", sellerSchema);

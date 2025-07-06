@@ -93,34 +93,54 @@ export const getOrdersDetails = async (req, res) => {
     }
 };
 
-export const getBrands = async (req, res) => {
+
+
+// Get Business for a Seller
+export const getBusiness = async (req, res) => {
     try {
-        const seller = await Seller.findById(req.params.sellerId).populate("brands");
+        const seller = await Seller.findById(req.params.sellerId).populate("business");
         if (!seller) return res.status(404).json({ success: false, message: "Seller not found" });
-        res.status(200).json({ success: true, brands: seller.brands });
+
+        res.status(200).json({ success: true, business: seller.business });
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
 };
 
-export const createBrand = async (req, res) => {
-    const { brandId, brandName, brandLogo, brandBanner, description, categories, createdBy } = req.body;
+// Create Business
+export const createBusiness = async (req, res) => {
+    const {
+        businessId,
+        businessName,
+        businessLogo,
+        businessBanner,
+        description,
+        createdBy,
+        socialLinks,
+        status
+    } = req.body;
+
     try {
-        const newBrand = await Brand.create({
-            brandId,
-            brandName,
-            brandLogo,
-            brandBanner,
+        const newBusiness = await Business.create({
+            businessId,
+            businessName,
+            businessLogo,
+            businessBanner,
             description,
-            categories,
             createdBy,
+            socialLinks,
+            status
         });
-        await Seller.findByIdAndUpdate(createdBy, { $push: { brands: newBrand._id } });
-        res.status(201).json({ success: true, brand: newBrand });
+
+        // Link business to seller (assuming 1:1 mapping)
+        await Seller.findByIdAndUpdate(createdBy, { business: newBusiness._id });
+
+        res.status(201).json({ success: true, business: newBusiness });
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
 };
+
 
 export const updatePaymentGatewayDetails = async (req, res) => {
     try {

@@ -1,13 +1,13 @@
 // navbar.jsx
 import { ChevronRight, Heart, Menu, Search, ShoppingBag, User } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 import logoSm from "../../assets/logo-sm.png";
-import logoFull from "../../assets/logo-full.png"
 import alternativeProfileImg from "../../assets/alternative-profile-image.png"
 import { useLocation,useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
+import { useWebNavStore } from "../../Store/useWebStores/useWebNavStore";
 
 const Navbar = () => {
     const {user,isLoading} = useAuth0();
@@ -16,14 +16,19 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [isSearchActive, setIsSearchActive] = useState(false)
     const [genderName, setGenderName] = useState("MEN")
+    const {navBarData,getNavBarData} = useWebNavStore();
+    console.log(navBarData);
 
     const location = useLocation();
     const navigate = useNavigate();
     // Check if the current path is the home page
-    const isHomePage = location.pathname === '/';
+    const isHomePage = location.pathname === '/' || location.pathname === '/webedit';
     const [searchBar, setSearchBar] = useState(false)
-    // eslint-disable-next-line no-unused-vars
-    const [logoSmall, setLogoSmall] = useState(true)
+
+    useEffect(() => {
+        getNavBarData()
+    }, [getNavBarData])
+    
 
     const handelSearch=(e)=>{
         e.preventDefault();
@@ -38,26 +43,21 @@ const Navbar = () => {
         <>
             {/* Top Navbar */}
             <div className="top-nav">
-                {logoSmall?(
-                    <div className="logo-small" onClick={()=>navigate("/")}>
-                        <div className="logo-image">
-                            <img src={logoSm} alt="logo" />
-                        </div>
-                        <p className="text">COM</p>
+                <div className="logo-small" onClick={()=>navigate("/")}>
+                    <div className="logo-image">
+                        <img src={navBarData.logoImage || logoSm} alt="logo" />
                     </div>
-                ):(
-                    <div className="logo-full" onClick={()=>navigate("/")}>
-                        <img src={logoFull} alt="logo" />
-                    </div>
-                )}
+                    <p className="text">{navBarData.logoText || "COM"}</p>
+                </div>
+                
                 <div className="Top-nav-switch-box nav-links">
-                    {["MEN","WOMEN","BOTH","MORE"].map((item,index)=>(
+                    {( ["MEN","WOMEN"]).map((item,index)=>(
                         <div
                             className={`switch-item ${genderName===item?"active":""}`}
                             key={index}
                             onClick={()=>setGenderName(item)}
                         >
-                            <Link to="/">{item}</Link>
+                            <Link to="">{item}</Link>
                         </div>
                     ))}
                 </div>
@@ -81,11 +81,11 @@ const Navbar = () => {
                         <div className={`search-recommendations ${isSearchActive ? "active" : ""}`}>
                             <div className="search-recommendations-list">
                                 {[
-                                    "T-Shirts", "Jeans", "Jumpsuits", "Jackets", "Accessories", "Sneakers", "Bags", "Plus"
+                                    {name:"T-Shirts",route:"/"}, {name:"Jeans",route:"/"}, {name:"Jumpsuits",route:"/"}, {name:"Jackets",route:"/"}, {name:"Accessories",route:"/"}, {name:"Sneakers",route:"/"}, {name:"Bags",route:"/"}, {name:"Plus",route:"/"}
                                 ].map((item, index) => (
-                                    <Link to={`/collection/${item.split(" ").join("+")}`} onClick={()=>setSearchInput("")} className="search-recommendation-item" key={index}>
+                                    <Link to={`/collection${item.route}`} onClick={()=>setSearchInput("")} className="search-recommendation-item" key={index}>
                                         <Search className="search-recommendation-icon" />
-                                        <p className="search-recommendation-text">{item}</p>
+                                        <p className="search-recommendation-text">{item.name}</p>
                                     </Link>
                                 ))}
                             </div>
@@ -97,7 +97,7 @@ const Navbar = () => {
                     </Link>
                     {user || isLoading?(
                         <Link to={`${user?"/myaccount":"/login"}`} className={`${searchBar ? "search-hidden" : ""} ${user?.picture?"top-nav-image-link":"top-nav-links"}`}>
-                            {user?.picture ?(
+                            {user?.picture && !isLoading ?(
                                 <img
                                     src={ user.picture || alternativeProfileImg }
                                     alt="ProfileImg"
@@ -130,7 +130,7 @@ const Navbar = () => {
                     <Menu className="menu-icon icon" onClick={() => setMenuOpen(!menuOpen)} />
                 </div>
                 <div className="bottom-nav-switch-box">
-                    {["MEN","WOMEN","BOTH"].map((item,index)=>(
+                    {["MEN","WOMEN"].map((item,index)=>(
                         <button
                             onClick={()=>setGenderName(item)}
                             className={`button ${genderName===item?"active":""}`}
@@ -139,19 +139,19 @@ const Navbar = () => {
                     ))}
                 </div>
                 <div className={`bottom-links ${menuOpen ? "open" : ""}`}>
-                    {['SHOP NOW',
-                        'LIVE NOW',
-                        'PLUS SIZE',
-                        'ACCESSORIES',
-                        'OFFICIAL MERCH',
-                        'SNEAKERS',
-                        'BEWAKOOF AIR',
-                        'ACCESSORIES',
-                        'OFFICIAL MERCH',
-                        'SNEAKERS',
-                        "BEWAKOOF AIR",].map((item, index) => (
+                    {(navBarData.bottomNavItems.length ? navBarData.bottomNavItems : [{name:'SHOP NOW',route:"/abc"},
+                        {name:'LIVE NOW',route:"/abc"},
+                        {name:'PLUS SIZE',route:"/abc"},
+                        {name:'ACCESSORIES',route:"/abc"},
+                        {name:'OFFICIAL MERCH',route:"/abc"},
+                        {name:'SNEAKERS',route:"/abc"},
+                        {name:'BEWAKOOF AIR',route:"/abc"},
+                        {name:'ACCESSORIES',route:"/abc"},
+                        {name:'OFFICIAL MERCH',route:"/abc"},
+                        {name:'SNEAKERS',route:"/abc"},
+                        {name:"BEWAKOOF AIR",route:"/abc"}]).map((item, index) => (
                             <div className="bottom-links-box" key={index}>
-                                <Link to={"/collection/"+item.split(" ").join("-").toLowerCase()} className="bottom-link-items">{item}</Link>
+                                <Link to={"/collection"+item.route} className="bottom-link-items">{item.name}</Link>
                             </div>
                         ))}
                 </div>

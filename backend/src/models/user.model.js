@@ -24,7 +24,6 @@ const userSchema = new mongoose.Schema(
         },
         picture: {
             type: String,
-            default: "/avatar.jpg",
         },
         loginProvider: {
             type: String,
@@ -37,6 +36,10 @@ const userSchema = new mongoose.Schema(
         gender: {
             type: String,
             enum: ["male", "female", "other"],
+        },
+        role: {
+            type: String,
+            default: "user",
         },
         dateOfBirth: {
             day: Number,

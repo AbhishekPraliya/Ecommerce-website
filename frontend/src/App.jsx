@@ -12,8 +12,13 @@ import MyAccount from './Pages/AccountPage/MyAccount.jsx'
 import WishList from './Pages/WishList/WishList.jsx'
 import CartPage from './Pages/CartPage/CartPage.jsx'
 import LoginPage from './Pages/LoginPage/LoginPage.jsx'
+import WebEdit from './Pages/WebEdit/WebEdit.jsx';
+import ContactUs from './Pages/ContactUs/ContactUs.jsx';
+import LoginSignup from './Pages/LoginSignupPage/LoginSignup.jsx';
+
 import { useAuth0 } from "@auth0/auth0-react";
-import {axiosInstance} from "./lib/axios.js"
+import BusinessAccountCreationPage from './Pages/BusinessAccountCreationPage/BusinessAccountCreationPage.jsx';
+// import {axiosInstance} from "./lib/axios.js"
 
 function App() {
   const { getAccessTokenSilently,getIdTokenClaims } = useAuth0();
@@ -24,10 +29,10 @@ function App() {
       try {
       await getAccessTokenSilently(); // tries silent login
         const token = await getIdTokenClaims();
-        const res = await axiosInstance.post("/auth/login", {
-            token: token.__raw,
-        });
-        console.log('res',res);
+        // const res = await axiosInstance.post("/auth/login", {
+        //     token: token.__raw,
+        // });
+        console.log('token=',token);
         
       } catch (error) {
         console.log("Silent login failed =", error);
@@ -69,8 +74,16 @@ function App() {
           <Route path="/myaccount" element={<MyAccount />} />
           <Route path="/wishlist" element={<WishList />} />
           <Route path="/cart" element={<CartPage />}/>
-          <Route path="/login" element={<LoginPage/>} />
-          
+          {/* <Route path="/login" element={<LoginPage/>} /> */}
+
+          {/* ////////// */}
+          <Route path="/login" element={<LoginSignup/>} />
+          <Route path="/signup" element={<LoginSignup/>} />
+          {/* ///////// */}
+
+          <Route path="/webedit" element={<WebEdit/>} />
+          <Route path="/contactus" element={<ContactUs/>} />
+          <Route path="/business" element={<BusinessAccountCreationPage/>} />
           
           {/* <Route path="*" element={
             <div className="not-found"

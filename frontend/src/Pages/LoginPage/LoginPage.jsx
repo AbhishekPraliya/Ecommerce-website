@@ -1,23 +1,34 @@
-import React, { useEffect, useState } from "react";
-import "./LoginPage.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import googleLogo from "../../assets/google-logo.png"
-import microsoftLogo from "../../assets/microsoft-logo.png"
-import facebookLogo from "../../assets/facebook-logo.png"
-import appleLogo from "../../assets/apple-logo.png"
-import loginPageImg from "../../assets/login-page-img.png"
+// import { useEffect, useState } from "react";
+import appleLogo from "../../assets/apple-logo.png";
+import facebookLogo from "../../assets/facebook-logo.png";
+import googleLogo from "../../assets/google-logo.png";
+import loginPageImg from "../../assets/login-page-img.png";
+import microsoftLogo from "../../assets/microsoft-logo.png";
+import "./LoginPage.css";
 
 const LoginPage = () => {
-    const [mobileNumber, setMobileNumber] = useState("");
+
+    // const [mobileNumber, setMobileNumber] = useState("");
     const { loginWithRedirect } = useAuth0();
 
     const handleLogin = (provider) => {
         loginWithRedirect({ connection: provider,});
     };
-    useEffect(()=>{
-        loginWithRedirect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
+    // useEffect(()=>{
+        // loginWithRedirect();
+    //  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[]);
+
+    const handleLoginWithBusinessAccount = async () => {
+        try {
+            await loginWithRedirect({
+            appState: { returnTo: '/business' }, // optional: tells Auth0 where to return
+            })
+        } catch (error) {
+            console.error('Redirect login failed:', error);
+        }
+    };
 
     return (
         <div className="login-page-outer-container">
@@ -35,11 +46,11 @@ const LoginPage = () => {
                 <div className="login-page-right">
                     <h2 className="login-page-heading">Login / Signup</h2>
                     <p className="login-page-subtext">
-                        Join us now to be a part of Bewakoof® family.
+                        Join us now to be a part of Our family.
                     </p>
 
                     {/* Mobile Number Login */}
-                    <div className="login-page-phone-input">
+                    {/* <div className="login-page-phone-input">
                         <span className="login-page-flag">🇮🇳 +91</span>
                         <input
                             type="tel"
@@ -55,7 +66,7 @@ const LoginPage = () => {
 
                     <div className="login-page-or-line">
                         <span>OR</span>
-                    </div>
+                    </div> */}
 
                     {/* Social Login Buttons */}
                     <div className="login-page-social-grid">
@@ -104,6 +115,20 @@ const LoginPage = () => {
                         </button>
                     </div>
 
+                    <div className="login-page-or-line">
+                        <span>OR</span>
+                    </div>
+
+                    {/* // business account button // */}
+                    <div className="login-page-ba-container">
+                        <div className="login-page-ba-heading">
+                            Login / Signup
+                        </div>
+                        <div className="login-page-ba-link">
+                            <p className="login-page-ba-blue-text" onClick={()=>handleLoginWithBusinessAccount()}>with business account</p>
+                        </div>
+                    </div>
+
                     <div className="login-page-checkbox">
                         <input type="checkbox" id="fast-checkout" />
                         <label htmlFor="fast-checkout">
@@ -112,8 +137,7 @@ const LoginPage = () => {
                     </div>
 
                     <p className="login-page-terms">
-                        By creating an account or logging in, you agree with Bewakoof’s{" "}
-                        <a href="#">T&C</a> and <a href="#">Privacy Policy</a> and Shiprocket's{" "}
+                        By creating an account or logging in, you agree with {" "}
                         <a href="#">T&C</a> and <a href="#">Privacy Policy</a>
                     </p>
                 </div>

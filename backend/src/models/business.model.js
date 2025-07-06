@@ -1,20 +1,20 @@
 import mongoose from "mongoose";
 
-const brandSchema = new mongoose.Schema({
-    brandId: {
+const businessSchema = new mongoose.Schema({
+    businessId: {
         type: String,
         required: true,
         unique: true,
     },
-    brandName: {
+    businessName: {
         type: String,
         required: true,
         unique: true,
     },
-    brandLogo: {
+    businessLogo: {
         type: String, // URL to logo image
     },
-    brandBanner: {
+    businessBanner: {
         type: String, // Optional promotional banner
     },
     description: {
@@ -41,5 +41,5 @@ const brandSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-const Brand = mongoose.model("Brand", brandSchema);
-export default Brand;
+const Business = mongoose.model("Business", businessSchema);
+export default Business;

@@ -1,105 +1,62 @@
 import { create } from "zustand";
+import { axiosInstance } from "../lib/axios.js";
 import { toast } from "react-hot-toast";
-import { axiosInstance } from "../lib/axios";
-import { Auth0Client } from "@auth0/auth0-spa-js";
 
-// Initialize Auth0 Client
-const auth0 = new Auth0Client({
-    domain: import.meta.env.VITE_AUTH0_DOMAIN,
-    client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,
-    authorizationParams: {
-        redirect_uri: window.location.origin,
-        audience: import.meta.env.VITE_AUTH0_AUDIENCE,
-    },
-});
-
-export const useAuthStore = create((set) => ({
+export const useAuthStore = create((set, get) => ({
     authUser: null,
-    isCheckingAuth: true,
     isLoggingIn: false,
-    isSigningUp: false,
-    isLoggingOut: false,
+    isUpdatingProfile: false,
+    isCheckingAuth: false,
+    loginWithBusinessAccount: false,
 
     checkAuth: async () => {
-        set({ isCheckingAuth: true });
         try {
-            const isAuthenticated = await auth0.isAuthenticated();
-            console.log(isAuthenticated);
-            if (isAuthenticated) {
-                const token = await auth0.getIdTokenClaims();
-                const res = await axiosInstance.post("/auth/login", {
-                    token: token.__raw,
-                });
-                set({ authUser: res.data });
-            } else {
-                set({ authUser: null });
-            }
+            set({ isCheckingAuth: true });
+
+            const endpoint = get().loginWithBusinessAccount
+                ? "/auth/check/business-account"
+                : "/auth/check/user";
+
+            const res = await axiosInstance.get(endpoint);
+            set({ authUser: res.data });
         } catch (error) {
+            set({ authUser: null });
             console.log("Error in checkAuth:", error);
-            toast.error("Authentication check failed");
         } finally {
             set({ isCheckingAuth: false });
         }
     },
 
-    login: async () => {
+    login: async (data) => {
         set({ isLoggingIn: true });
         try {
-            await auth0.loginWithRedirect(); // Normal login
+            const endpoint = get().loginWithBusinessAccount
+                ? "/auth/login/business-account"
+                : "/auth/login/user";
+
+            const res = await axiosInstance.post(endpoint, data);
+            set({ authUser: res.data });
+
+            toast.success(`${res.data.role} Logged in successfully`);
         } catch (error) {
-            console.log("Login error:", error);
-            toast.error("Login failed.");
+            toast.error(error?.response?.data?.message || "Login failed");
         } finally {
             set({ isLoggingIn: false });
         }
     },
 
-    signup: async () => {
-        set({ isSigningUp: true });
-        try {
-            await auth0.loginWithRedirect({
-                authorizationParams: {
-                    screen_hint: "signup", // Force Auth0 to show signup page
-                },
-            });
-        } catch (error) {
-            console.log("Signup error:", error);
-            toast.error("Signup failed.");
-        } finally {
-            set({ isSigningUp: false });
-        }
-    },
-
-    handleRedirectCallback: async () => {
-        try {
-            await auth0.handleRedirectCallback();
-            const token = await auth0.getIdTokenClaims();
-            console.log("handleRedirectCallBack=",token);
-            const res = await axiosInstance.post("/auth/login", {
-                token: token.__raw,
-            });
-            set({ authUser: res.data });
-            toast.success("Authenticated successfully");
-        } catch (error) {
-            console.error("Redirect callback error:", error);
-            toast.error("Authentication failed");
-        }
-    },
-
     logout: async () => {
-        set({ isLoggingOut: true });
         try {
-            await axiosInstance.post("/auth/logout");
-            await auth0.logout({ logoutParams: { returnTo: window.location.origin } });
+            const endpoint = get().loginWithBusinessAccount
+                ? "/auth/logout/business-account"
+                : "/auth/logout/user";
+
+            await axiosInstance.post(endpoint);
             set({ authUser: null });
             toast.success("Logged out successfully");
+            get().disconnectSocket?.();
         } catch (error) {
-            console.log("Logout error:", error);
-            toast.error("Logout failed");
-        } finally {
-            set({ isLoggingOut: false });
+            toast.error(error?.response?.data?.message || "Logout failed");
         }
     },
-
-    getAuth0: () => auth0,
 }));

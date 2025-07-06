@@ -1,6 +1,8 @@
 import express from "express"
 import userRoutes from "./routes/user.route.js"
 import productRoutes from "./routes/product.route.js"
+import webRoutes from "./routes/web.route.js"
+import contactUsRoutes from './routes/contactUs.routes.js';
 import dotenv from "dotenv"
 import {connectDB} from "./lib/db.js"
 import cookieParser from "cookie-parser"
@@ -23,7 +25,8 @@ app.use(cors({
 
 app.use("/api/auth", userRoutes )
 app.use("/api/product", productRoutes )
-
+app.use("/api/web", webRoutes )
+app.use('/api/contact-us', contactUsRoutes);
 
 
 app.listen(PORT,()=>{

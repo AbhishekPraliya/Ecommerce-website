@@ -12,7 +12,6 @@ const ownerSchema = new mongoose.Schema({
     },
     picture: {
         type: String,
-        default: "/avatar.jpg",
     },
     loginProvider: {
         type: String,
@@ -21,8 +20,7 @@ const ownerSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ["owner", "co-owner"],
-        default: "co-owner",
+        default: "owner",
     },
     phoneNumber: {
         type: String,

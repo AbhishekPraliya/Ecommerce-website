@@ -51,6 +51,10 @@ const productSchema = new mongoose.Schema({
     moreImages: {
         type: [String], // Array of image URLs or filenames
     },
+    gender: {
+        type: String,
+        enum: ["male", "female", "unisex"],
+    },
     discount: {
         type: Number,
         required: true,

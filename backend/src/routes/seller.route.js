@@ -6,8 +6,8 @@ import {
     updateSellerDetails,
     updateMobileNumber,
     getOrdersDetails,
-    getBrands,
-    createBrand,
+    getBusiness,
+    createBusiness,
     updatePaymentGatewayDetails,
     getAllSellers,
     getSeller,
@@ -22,8 +22,8 @@ router.get("/:userId", getSeller);
 router.get("/all", getAllSellers);
 router.put("/phone/:sellerId", updateMobileNumber);
 router.get("/orders/:sellerId", getOrdersDetails);
-router.get("/brands/:sellerId", getBrands);
-router.post("/brand/create", createBrand);
+router.get("/business/:sellerId", getBusiness);
+router.post("/business/create", createBusiness);
 router.put("/gateway/:sellerId", updatePaymentGatewayDetails);
 
 export default router;
