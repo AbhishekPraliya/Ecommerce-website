@@ -1,13 +1,15 @@
 import { useAuth0 } from "@auth0/auth0-react";
-// import { useEffect, useState } from "react";
+import { useEffect,} from "react";
 import appleLogo from "../../assets/apple-logo.png";
 import facebookLogo from "../../assets/facebook-logo.png";
 import googleLogo from "../../assets/google-logo.png";
 import loginPageImg from "../../assets/login-page-img.png";
 import microsoftLogo from "../../assets/microsoft-logo.png";
 import "./LoginPage.css";
+import { useAuthStore } from "../../Store/useAuthStore";
 
 const LoginPage = () => {
+    const {loginWithBusinessAccount,setLoginWithBusinessAccount} = useAuthStore();
 
     // const [mobileNumber, setMobileNumber] = useState("");
     const { loginWithRedirect } = useAuth0();
@@ -15,15 +17,20 @@ const LoginPage = () => {
     const handleLogin = (provider) => {
         loginWithRedirect({ connection: provider,});
     };
-    // useEffect(()=>{
-        // loginWithRedirect();
-    //  // eslint-disable-next-line react-hooks/exhaustive-deps
-    // },[]);
+    useEffect(()=>{
+        if(loginWithBusinessAccount){
+            setLoginWithBusinessAccount(false);
+            localStorage.setItem("loginWithBusinessAccount", "false");
+        }
+    //  eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
     const handleLoginWithBusinessAccount = async () => {
         try {
+            setLoginWithBusinessAccount(true);
+            localStorage.setItem("loginWithBusinessAccount", "true");
             await loginWithRedirect({
-            appState: { returnTo: '/business' }, // optional: tells Auth0 where to return
+            // appState: { returnTo: '/business' }, // optional: tells Auth0 where to return
             })
         } catch (error) {
             console.error('Redirect login failed:', error);

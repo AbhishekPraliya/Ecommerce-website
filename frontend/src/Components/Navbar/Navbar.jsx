@@ -17,7 +17,9 @@ const Navbar = () => {
     const [isSearchActive, setIsSearchActive] = useState(false)
     const [genderName, setGenderName] = useState("MEN")
     const {navBarData,getNavBarData} = useWebNavStore();
-    console.log(navBarData);
+    const [profileImg, setProfileImg] = useState(alternativeProfileImg)
+    
+    // console.log(navBarData);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -28,6 +30,10 @@ const Navbar = () => {
     useEffect(() => {
         getNavBarData()
     }, [getNavBarData])
+
+    useEffect(() => {
+        user?.picture?setProfileImg(user.picture):"";
+    }, [user])
     
 
     const handelSearch=(e)=>{
@@ -99,10 +105,10 @@ const Navbar = () => {
                         <Link to={`${user?"/myaccount":"/login"}`} className={`${searchBar ? "search-hidden" : ""} ${user?.picture?"top-nav-image-link":"top-nav-links"}`}>
                             {user?.picture && !isLoading ?(
                                 <img
-                                    src={ user.picture || alternativeProfileImg }
+                                    src={ profileImg }
                                     alt="ProfileImg"
                                     className="top-nav-profile-image"
-                                    
+                                    loading="lazy" decoding="async"
                                 />
                             ):(
                                 <User className="icon" />
@@ -157,7 +163,7 @@ const Navbar = () => {
                 </div>
             </div>)}
 
-            {!isHomePage && (
+            {/* {!isHomePage && (
                 <div className="breadcrumb-container">
                     <div className="breadcrumb">
                         {[
@@ -177,7 +183,7 @@ const Navbar = () => {
                         <div className="current breadcrumb-item">Men's Black Batman Outline Logo Graphic Printed Oversized T-shirt</div>
                     </div>
                 </div>
-            )}
+            )} */}
 
             {  /* Background Hider */}
             {menuOpen && (

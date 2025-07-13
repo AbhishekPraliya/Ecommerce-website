@@ -1,30 +1,68 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState,useEffect } from "react";
 import "./businessAccountCreationPage.css";
+import {useAuthStore} from "../../Store/useAuthStore.js";
+import {useSellerStore} from "../../Store/useAuthSellerStore.js"
 
-const BusinessAccountCreationPage = ({ onSubmit, initialData = {} }) => {
+const BusinessAccountCreationPage = ( ) => {
+  const {authUser} = useAuthStore();
+  const {createBusiness,sellerBusiness,getBusiness} = useSellerStore();
+
+  const [isInputChange, setIsInputChange] = useState(false)
   const [form, setForm] = useState({
-    businessId: initialData.businessId || "",
-    businessName: initialData.businessName || "",
-    businessLogo: initialData.businessLogo || "",
-    businessBanner: initialData.businessBanner || "",
-    description: initialData.description || "",
-    website: initialData.socialLinks?.website || "",
-    instagram: initialData.socialLinks?.instagram || "",
-    facebook: initialData.socialLinks?.facebook || "",
-    twitter: initialData.socialLinks?.twitter || "",
-    status: initialData.status || "Pending",
-  });
+  businessName: "",
+  businessLogo: "",
+  businessBanner: "",
+  description: "",
+  website: "",
+  instagram: "",
+  facebook: "",
+  twitter: "",
+  status: "Pending",
+  email: "",
+  sellerId: "",
+  name: ""
+});
+
+// When data arrives from server, populate the form
+useEffect(() => {
+  if (sellerBusiness?.business && authUser) {
+    setForm({
+      businessName: sellerBusiness.business.businessName || "",
+      businessLogo: sellerBusiness.business.businessLogo || "",
+      businessBanner: sellerBusiness.business.businessBanner || "",
+      description: sellerBusiness.business.description || "",
+      website: sellerBusiness.business.socialLinks?.website || "",
+      instagram: sellerBusiness.business.socialLinks?.instagram || "",
+      facebook: sellerBusiness.business.socialLinks?.facebook || "",
+      twitter: sellerBusiness.business.socialLinks?.twitter || "",
+      status: sellerBusiness.business.status || "Pending",
+      email: authUser.email || "",
+      sellerId: authUser._id || "",
+      name: authUser.name || ""
+    });
+  }
+}, [sellerBusiness, authUser]);
+
+
+  useEffect(()=>{
+    authUser && getBusiness(authUser?._id)
+  },[authUser]);
 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+    setIsInputChange(true);
   };
 
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!isInputChange) {
+      return
+    };
     const finalData = {
       ...form,
       socialLinks: {
@@ -34,19 +72,29 @@ const BusinessAccountCreationPage = ({ onSubmit, initialData = {} }) => {
         twitter: form.twitter,
       },
     };
-    onSubmit(finalData);
+    createBusiness(finalData);
   };
 
   return (
     <div className="business-account-page-container">
-      <h2>{initialData.businessId ? "Edit Brand" : "Create New Brand"}</h2>
+      <h2>{sellerBusiness.business ? "Edit Business or Brand" : "Create New Business or Brand"}</h2>
       <form onSubmit={handleSubmit} className="business-account-form">
         <label>
-          Business ID:
+          Email:
           <input
-            name="businessId"
-            value={form.businessId}
-            onChange={handleChange}
+            name="email"
+            defaultValue={form.email}
+            value={form.email}
+            required
+          />
+        </label>
+
+        <label>
+          Seller Name:
+          <input
+            name="name"
+            defaultValue={form.name}
+            value={form.name}
             required
           />
         </label>
@@ -61,6 +109,19 @@ const BusinessAccountCreationPage = ({ onSubmit, initialData = {} }) => {
           />
         </label>
 
+
+        <div className="business-account-logo-image-container">
+          {form.businessLogo ? (
+            <img
+              src={form.businessLogo}
+              alt="Logo Preview"
+              className="business-account-logo-image"
+            />
+          ) : (
+            <div className="business-account-placeholder">Logo Preview</div>
+          )}
+        </div>
+
         <label>
           Logo URL:
           <input
@@ -69,6 +130,19 @@ const BusinessAccountCreationPage = ({ onSubmit, initialData = {} }) => {
             onChange={handleChange}
           />
         </label>
+
+
+        <div className="business-account-banner-image-container">
+          {form.businessBanner ? (
+            <img
+              src={form.businessBanner}
+              alt="Banner Preview"
+              className="business-account-banner-image"
+            />
+          ) : (
+            <div className="business-account-placeholder">Banner Preview</div>
+          )}
+        </div>
 
         <label>
           Banner URL:
@@ -135,7 +209,7 @@ const BusinessAccountCreationPage = ({ onSubmit, initialData = {} }) => {
         </label>
 
         <button type="submit" className="business-account-submit-btn">
-          {initialData.businessId ? "Update" : "Create"}
+          {sellerBusiness?.business ? "Update" : "Create"}
         </button>
       </form>
     </div>

@@ -27,9 +27,9 @@ const productRatingSchema = new mongoose.Schema({
 }, {timestamps: true,}, { _id: false });
 
 const productSchema = new mongoose.Schema({
-    brand: {
+    business: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Brand", // From BrandSchema
+        ref: "Business", // From BusinessSchema
         required: true,
     },
     name: {
@@ -87,18 +87,29 @@ const productSchema = new mongoose.Schema({
     lowStockSize: {
         type: String,
     },
-    offer: {
-        type: String,
+    offer: {type: String},
+    offerDetails:{
+        productNumber:{type:Number},
+        comboPrice:{type:Number},
     },
     keyHighlights: [
         keyHighlightSchema
     ],
-    likes: [
-        mongoose.Schema.Types.ObjectId // user IDs who liked the product
-    ],
+    likes: [{
+        type:mongoose.Schema.Types.ObjectId, // user IDs who liked the product
+        ref:'User'
+    }],
+    likeNumbers:{
+        type:Number,
+        default:0,
+    },
     productDescription: {
         type: String,
     },
+    categories: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Category",
+    }],
     productRatings: [productRatingSchema],
 }, {
     timestamps: true,

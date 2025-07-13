@@ -4,7 +4,6 @@ const categorySchema = new mongoose.Schema(
     {
         categoryImage: {
             type: String,
-            required: true,
         },
         categoryName: {
             type: String,
@@ -12,9 +11,13 @@ const categorySchema = new mongoose.Schema(
             unique: true,
             trim: true,
         },
+        categoryType:{
+            type:String,
+            required:true,
+        },
         gender: {
             type: [String],
-            enum: ["men", "women", "unisex", "kids"],
+            enum: ["men", "women", "unisex"],
             required: true,
         },
         description: {
@@ -24,7 +27,7 @@ const categorySchema = new mongoose.Schema(
         },
         isActive: {
             type: Boolean,
-            default: true,
+            default: false,
         },
     },
     {
@@ -32,4 +35,6 @@ const categorySchema = new mongoose.Schema(
     }
 );
 
-export const Category = mongoose.model("Category", categorySchema);
+const Category = mongoose.model("Category", categorySchema);
+
+export default Category;

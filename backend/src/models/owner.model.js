@@ -6,7 +6,7 @@ const ownerSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    fullName: {
+    name: {
         type: String,
         required: true,
     },
@@ -38,6 +38,25 @@ const ownerSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    addresses: [
+        {
+            firstName: { type: String },
+            lastName: { type: String },
+            mobile: { type: String },
+            country: { type: String, },
+            pinCode: { type: String },
+            city: { type: String },
+            state: { type: String },
+            street: { type: String },   // building/street name
+            area: { type: String },     // locality
+            landmark: { type: String },
+            addressType: {
+                type: String,
+                enum: ["Home", "Office", "Other"],
+                default: "Other",
+            },
+        }
+    ],
 }, { timestamps: true });
 
 const Owner = mongoose.model("Owner", ownerSchema);

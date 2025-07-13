@@ -54,7 +54,25 @@ const sellerSchema = new mongoose.Schema({
         month: Number,
         year: Number, // Format: dd-mm-yyyy
     },
-    address: addressSchema,
+    addresses: [
+            {
+                firstName: { type: String },
+                lastName: { type: String },
+                mobile: { type: String },
+                country: { type: String, },
+                pinCode: { type: String },
+                city: { type: String },
+                state: { type: String },
+                street: { type: String },   // building/street name
+                area: { type: String },     // locality
+                landmark: { type: String },
+                addressType: {
+                type: String,
+                enum: ["Home", "Office", "Other"],
+                default: "Other",
+                },
+            }
+            ],
 
     orders: [
         {

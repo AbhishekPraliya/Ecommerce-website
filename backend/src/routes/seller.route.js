@@ -11,8 +11,10 @@ import {
     updatePaymentGatewayDetails,
     getAllSellers,
     getSeller,
+    insertFakeProducts,
+    getSellerProducts,
 } from "../controllers/seller.controller.js";
-
+import {protectRoute} from "../middleware/auth.middleware.js"
 const router = express.Router();
 
 router.post("/create", createSeller);
@@ -23,7 +25,12 @@ router.get("/all", getAllSellers);
 router.put("/phone/:sellerId", updateMobileNumber);
 router.get("/orders/:sellerId", getOrdersDetails);
 router.get("/business/:sellerId", getBusiness);
-router.post("/business/create", createBusiness);
+router.post("/business/create",protectRoute ,createBusiness);
 router.put("/gateway/:sellerId", updatePaymentGatewayDetails);
+router.put("/insert/Fake/Product", insertFakeProducts);
+// insertFakeProducts();
+
+
+router.get("/get/products",protectRoute, getSellerProducts);
 
 export default router;

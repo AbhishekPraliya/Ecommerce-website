@@ -1,12 +1,13 @@
 .business-account-page-container {
   max-width: 700px;
-  margin: 2rem auto;
+  margin: auto;
   padding: 2rem;
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   font-family: "Segoe UI", sans-serif;
 }
+
 
 .business-account-page-container h2 {
   margin-bottom: 1.5rem;
@@ -100,3 +101,58 @@
   flex: 1;
   background-color: white;
 }
+
+/* ///// */
+.business-account-image-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.business-account-logo-image-container,
+.business-account-banner-image-container {
+  background-color: lightgray;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.business-account-logo-image-container {
+  width: 200px;
+}
+
+.business-account-banner-image-container {
+  width: 100%;
+}
+
+.business-account-logo-image,
+.business-account-banner-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.business-account-placeholder {
+  color: #777;
+  font-size: 18px;
+}
+
+
+
+/* Responsive Design */
+@media screen and (max-width: 500px) {
+  .business-account-page-container{
+    padding: 10px;
+  }
+  
+  .business-account-logo-image-container,
+  .business-account-banner-image-container {
+    height: 150px;
+  }
+  .business-account-logo-image-container{
+    width: 150px;
+  }
+}
+

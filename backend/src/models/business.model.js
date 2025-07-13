@@ -1,10 +1,18 @@
 import mongoose from "mongoose";
 
 const businessSchema = new mongoose.Schema({
-    businessId: {
+    sellerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Seller", // Seller who owns the brand
+        required: true,
+    },
+    email:{
         type: String,
         required: true,
         unique: true,
+    },
+    name: {
+        type: String,
     },
     businessName: {
         type: String,
@@ -23,11 +31,6 @@ const businessSchema = new mongoose.Schema({
     categories: [{
         type: String,
     }],
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Seller", // Seller who owns the brand
-        required: true,
-    },
     socialLinks: {
         website: String,
         instagram: String,

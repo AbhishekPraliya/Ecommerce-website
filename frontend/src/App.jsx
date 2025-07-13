@@ -14,14 +14,19 @@ import CartPage from './Pages/CartPage/CartPage.jsx'
 import LoginPage from './Pages/LoginPage/LoginPage.jsx'
 import WebEdit from './Pages/WebEdit/WebEdit.jsx';
 import ContactUs from './Pages/ContactUs/ContactUs.jsx';
-import LoginSignup from './Pages/LoginSignupPage/LoginSignup.jsx';
+// import LoginSignup from './Pages/LoginSignupPage/LoginSignup.jsx';
+import { useAuthStore } from './Store/useAuthStore.js';
+import BusinessAccountCreationPage from './Pages/BusinessAccountCreationPage/BusinessAccountCreationPage.jsx';
+import LoadingComponent from './Pages/LoadingComponent/LoadingComponent.jsx';
+import ProductListPage from './Pages/ProductListPage/ProductListPage.jsx';
 
 import { useAuth0 } from "@auth0/auth0-react";
-import BusinessAccountCreationPage from './Pages/BusinessAccountCreationPage/BusinessAccountCreationPage.jsx';
+import AddProductPage from './Pages/AddProductPage/AddProductPage.jsx';
 // import {axiosInstance} from "./lib/axios.js"
 
 function App() {
-  const { getAccessTokenSilently,getIdTokenClaims } = useAuth0();
+  const {login} = useAuthStore();
+  const { getAccessTokenSilently,getIdTokenClaims,user } = useAuth0();
   
 
   useEffect(() => {
@@ -40,6 +45,15 @@ function App() {
     };
     silentlyLogin();
   }, []);
+
+  useEffect(()=>{
+    const handelLogin= async ()=>{
+      await login(user);
+      // console.log("loginWithBusinessAccount",localStorage.getItem("loginWithBusinessAccount"))
+      // console.log("loginData",loginData);
+    }
+    user && handelLogin();
+  },[user])
 
 
 
@@ -71,14 +85,18 @@ function App() {
           <Route path="/collection/:collectionId" element={<CollectionPage />} />
           <Route path="/search" element={<CollectionPage />} />
           <Route path="/product/:productId" element={<ProductPage />} />
+          <Route path="/myaccount/:route" element={<MyAccount />} />
           <Route path="/myaccount" element={<MyAccount />} />
           <Route path="/wishlist" element={<WishList />} />
           <Route path="/cart" element={<CartPage />}/>
-          {/* <Route path="/login" element={<LoginPage/>} /> */}
+          <Route path="/login" element={<LoginPage/>} />
+          <Route path="/add-products" element={<AddProductPage/>} />
+          <Route path="/product-list" element={<ProductListPage/>} />
+          
 
           {/* ////////// */}
-          <Route path="/login" element={<LoginSignup/>} />
-          <Route path="/signup" element={<LoginSignup/>} />
+          {/* <Route path="/login" element={<LoginSignup/>} />
+          <Route path="/signup" element={<LoginSignup/>} /> */}
           {/* ///////// */}
 
           <Route path="/webedit" element={<WebEdit/>} />
@@ -92,6 +110,8 @@ function App() {
             </div>
           } /> */}
         </Routes>
+
+        <LoadingComponent isLoading={false}/>
         <Footer/>
         <ScrollToTop/>
       </div>

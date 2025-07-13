@@ -10,7 +10,12 @@ export const useWebNavStore = create((set) => ({
         topNavItems: [],
         bottomNavItems: [],
     },
+    isLoadingComponent:false,
     isLoading: false,
+
+    setIsLoadingComponent: (data)=>{
+        set({isLoadingComponent:data});
+    },
 
     getNavBarData: async () => {
         set({ isLoading: true });
