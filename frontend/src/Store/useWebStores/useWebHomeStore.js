@@ -3,27 +3,30 @@ import { axiosInstance } from "../../lib/axios.js";
 import { toast } from "react-hot-toast";
 
 export const useWebHomeStore = create((set) => ({
-    homePageData: {
-        headerImage: "",
-        headerText: "",
-        imageSlider: [], // array of arrays
-        productSlider: [], // category-arranged products
-        trendingCategories: [], // image list
-        advertisementPanel: [], // [{ image, offerEndDate }]
-    },
     isLoading: false,
-
-    getHomePageData: async () => {
-        set({ isLoading: true });
+    homePageData: [],
+    
+    getHomeData: async () => {
         try {
-            const { data } = await axiosInstance.get("/web/home");
-            set({ homePageData: data });
-        } catch (error) {
-            toast.error("Failed to fetch homepage data",error);
-        } finally {
-            set({ isLoading: false });
+            const res = await axiosInstance.get("/web/get/home-data");
+            set({ homePageData: res.data?.homeData || [] });
+            return res.data;
+        } catch (err) {
+            console.error("Error fetching home data:", err);
         }
     },
+
+    insertHomeData: async (homeData) => {
+        try {
+            const res = await axiosInstance.post("/web/insert/home-data", { homeData });
+            set({ homePageData: res.data?.homeData || [] });
+            toast.success("Header updated");
+            return res.data;
+        } catch (err) {
+            console.error("Error inserting home data:", err);
+        }
+    },
+
 
     updateHeader: async (data) => {
         try {

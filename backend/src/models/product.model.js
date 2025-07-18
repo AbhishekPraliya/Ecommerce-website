@@ -93,7 +93,10 @@ const productSchema = new mongoose.Schema({
         comboPrice:{type:Number},
     },
     keyHighlights: [
-        keyHighlightSchema
+        {
+            title:{type:String},
+            value: {type:String}
+        }
     ],
     likes: [{
         type:mongoose.Schema.Types.ObjectId, // user IDs who liked the product

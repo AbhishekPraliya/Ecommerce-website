@@ -1,14 +1,15 @@
 import "./ProductPage.css"
 import ProductSlider from "../../Components/ProductSlider/ProductSlider.jsx"
-import ProductImageContainer from '../../Components/ProductImageContainer/ProductImageContainer'
-import ProductDetail from '../../Components/ProductDetail/ProductDetail'
+import ProductImageContainer from './Components/ProductImageContainer/ProductImageContainer.jsx'
+import ProductDetail from './Components/ProductDetail/ProductDetail.jsx'
 import { useEffect, useState } from "react"
 import { useLocation} from "react-router-dom"
+import { useDataStore } from "../../Store/useDataStore.js"
 
 const ProductPage = () => {
-  
+  const {getProductById,productData} = useDataStore();
   const location = useLocation();
-  const [productId, setProductId] = useState("");
+  const [productId, setProductId] = useState(null);
     
     
 
@@ -25,21 +26,32 @@ const ProductPage = () => {
       const id = extractProductIdFromPath(location.pathname);
       setProductId(id);
       console.log("productId=",productId);
-
       
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location]);
+    
+    useEffect(() => {
+      const handelGetProductById =async()=>{
+        await getProductById(productId)
+      }
+      
+      productId && handelGetProductById();
+    },[productId,getProductById])
+    console.log(productData);
+    
 
+  if(!productData) return <div className="product-page-background-loading"></div>
 
 
   return (
     <div className='product-box'>
       <div className='product-container'>
         <section className="product-image-container">
-          <ProductImageContainer/>
+          <ProductImageContainer images={[productData?.image,...productData.moreImages]}/>
         </section>
         <section className="product-details-component">
-          <ProductDetail/>
+          <ProductDetail productDetails={productData}/>
         </section>
       </div>
       <ProductSlider/>

@@ -2,64 +2,71 @@ import React, { useState } from "react";
 import "./ProductDetail.css";
 import { Heart, ShoppingBag, Star } from "lucide-react";
 
-const productDetails = {
-brand: "Bewakoof®",
-    name: "Men's Purple T-shirt",
-    price: 399,
-    originalPrice: 899,
-    discount: 55,
-    rating: 4.2,
-    reviews: 5,
-    colors: [
-        "#ffffff",
-        "#0a0a1f",
-        "#fcf7b0",
-        "#835aff",
-        "#f6e9f0",
-        "#cdbddf",
-        "#f4e1cb",
-        "#e3e4dd",
-        "#f572a1",
-        "#034437",
-        "#e7effb",
-        "#cbf787",
-        "#56603f",
-        "#f5f3f2",
-        "#a55446",
-    ],
-    selectedColor: "Color",
-    sizes: ["S", "M", "L", "XL", "2XL"],
-    outOfStockSize: "3XL",
-    lowStockSize: "2XL",
-    offer: "Buy 3 for 999",
+// const productDetails = {
+// brand: "Bewakoof®",
+//     name: "Men's Purple T-shirt",
+//     price: 399,
+//     originalPrice: 899,
+//     discount: 55,
+//     rating: 4.2,
+//     reviews: 5,
+//     colors: [
+//         "#ffffff",
+//         "#0a0a1f",
+//         "#fcf7b0",
+//         "#835aff",
+//         "#f6e9f0",
+//         "#cdbddf",
+//         "#f4e1cb",
+//         "#e3e4dd",
+//         "#f572a1",
+//         "#034437",
+//         "#e7effb",
+//         "#cbf787",
+//         "#56603f",
+//         "#f5f3f2",
+//         "#a55446",
+//     ],
+//     selectedColor: "Color",
+//     sizes: ["S", "M", "L", "XL", "2XL"],
+//     outOfStockSize: "3XL",
+//     lowStockSize: "2XL",
+//     offer: "Buy 3 for 999",
     
-    keyHighlights: {
-        Design: "Graphic Print",
-        Fit: "Regular Fit",
-        Neck: "Round Neck",
-        Occasion: "Casual Wear",
-        "Sleeve Style": "Half Sleeve",
-        "Wash Care": "Gentle Machine Wash",
-    },
+//     keyHighlights: {
+//         Design: "Graphic Print",
+//         Fit: "Regular Fit",
+//         Neck: "Round Neck",
+//         Occasion: "Casual Wear",
+//         "Sleeve Style": "Half Sleeve",
+//         "Wash Care": "Gentle Machine Wash",
+//     },
 
-    productDescription: "Manufacture, Care and Fit",
+//     productDescription: "Manufacture, Care and Fit",
 
-    productRatings: [
-        { userId: "u101", userName: "Ravi", rating: 5, dateTime: "2025-06-25 14:32" },
-        { userId: "u102", userName: "Sneha", rating: 4, dateTime: "2025-06-26 10:18" },
-        { userId: "u103", userName: "Amit", rating: 3, dateTime: "2025-06-24 19:05" },
-        { userId: "u104", userName: "Meena", rating: 2, dateTime: "2025-06-23 08:45" },
-        { userId: "u105", userName: "John", rating: 1, dateTime: "2025-06-22 16:55" },
-    ],
-};
+//     productRatings: [
+//         { userId: "u101", userName: "Ravi", rating: 5, dateTime: "2025-06-25 14:32" },
+//         { userId: "u102", userName: "Sneha", rating: 4, dateTime: "2025-06-26 10:18" },
+//         { userId: "u103", userName: "Amit", rating: 3, dateTime: "2025-06-24 19:05" },
+//         { userId: "u104", userName: "Meena", rating: 2, dateTime: "2025-06-23 08:45" },
+//         { userId: "u105", userName: "John", rating: 1, dateTime: "2025-06-22 16:55" },
+//     ],
+// };
 
-const ProductDetail = () => {
-    const [selectedColor, setSelectedColor] = useState(productDetails.colors[5]);
+// brand
+// categories
+
+// image
+// moreImages
+
+
+const ProductDetail = ({productDetails}) => {
+    const [selectedColor, setSelectedColor] = useState(productDetails?.colors[0]);
     const [selectedSize, setSelectedSize] = useState(null);
 
     return (
-        <div className="product-detail-container-box">
-            <h2 className="brand">{productDetails.brand}</h2>
+        productDetails && (<div className="product-detail-container-box">
+            <h2 className="brand">{productDetails.business.businessName || "Business"}</h2>
             <p className="title">{productDetails.name}</p>
 
             <div className="price-section">
@@ -72,7 +79,7 @@ const ProductDetail = () => {
                 </div>
             </div>
 
-            <p className="sold-info">281 people bought this in the last 7 days</p>
+            <p className="sold-info">many people bought this in the last 7 days</p>
             <div className="tag">100% Cotton</div>
 
             <div className="section">
@@ -128,7 +135,7 @@ const ProductDetail = () => {
                     <span role="img" aria-label="tag">
                         🏷️
                     </span>{" "}
-                    {productDetails.offer}
+                    {productDetails.offer.label || "Offer included"}
                     <div className="auto-applied">Auto applied offer</div>
                     <a href="#view-all" className="view-all">
                         View all items ›
@@ -153,12 +160,14 @@ const ProductDetail = () => {
             <div className="key-highlights">
                 <h3 className="section-heading">Key Highlights</h3>
                 <div className="highlight-grid">
-                    <div><strong>Design</strong><br />Graphic Print</div>
-                    <div><strong>Fit</strong><br />Regular Fit</div>
-                    <div><strong>Neck</strong><br />Round Neck</div>
-                    <div><strong>Occasion</strong><br />Casual Wear</div>
-                    <div><strong>Sleeve Style</strong><br />Half Sleeve</div>
-                    <div><strong>Wash Care</strong><br />Gentle Machine Wash</div>
+                    {productDetails.keyHighlights.map((item,index)=>(
+                        <div key={index}>
+                            <strong>{item.title}</strong>
+                            <br />
+                            {item.value}
+                        </div>
+                        
+                    ))}
                 </div>
             </div>
 
@@ -166,7 +175,7 @@ const ProductDetail = () => {
             <div className="accordion-box">
                 <div className="accordion-item">
                     <p><strong>📄 Product Description</strong></p>
-                    <p className="accordion-sub">Manufacture, Care and Fit</p>
+                    <p className="accordion-sub">{productDetails.productDescription}</p>
                 </div>
                 <div className="accordion-item">
                     <p><strong>🔄 15 Days Returns & Exchange</strong></p>
@@ -213,7 +222,7 @@ const ProductDetail = () => {
             </div>
 
 
-        </div>
+        </div>)
     );
 };
 

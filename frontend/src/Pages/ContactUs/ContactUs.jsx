@@ -1,13 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ContactUs.css';
 
 import { Search, Send, ChevronDown, ChevronRight } from 'lucide-react';
 import { useWebContactUsStore } from '../../Store/useWebStores/useWebContactUsStore';
 
 const ContactUs = () => {
-    const { helpData, addressDetails } = useWebContactUsStore()
-    const [activeMain, setActiveMain] = useState(helpData[0].mainHeading);
+    const { getContactUsData } = useWebContactUsStore()
+    const [helpData, setHelpData] = useState([]);
+    const [activeMain, setActiveMain] = useState();
     const [openSub, setOpenSub] = useState({}); // key: subHeading title
+    const [addressDetails, setAddressDetails] = useState({})
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await getContactUsData();
+            console.log("getContactUsData=",res);
+            setHelpData(res.helpData || []);
+            setActiveMain(res.helpData[0]?.mainHeading || []);
+            setAddressDetails(res.addressDetails || {});
+        };
+        fetchData();
+    }, [getContactUsData]);
+
+    if(!helpData.length){
+        return (<div></div>)
+    }
+
     return (
         <div className="contact-us-main-container">
             <div className="contact-us-outer-box">
@@ -35,7 +53,7 @@ const ContactUs = () => {
                     {/* //helping details// */}
                     <div className="contact-us-helping-details">
                         <div className="contact-us-sidebar">
-                            {helpData.map((section) => (
+                            {helpData && helpData.map((section) => (
                                 <div
                                     key={section.mainHeading}
                                     className={`contact-us-main-heading ${activeMain === section.mainHeading ? 'active' : ''}`}
@@ -53,9 +71,9 @@ const ContactUs = () => {
                         <div className="contact-us-content">
                             <h3 className="contact-us-content-title">{activeMain}</h3>
                             
-                            {helpData
+                            {helpData && helpData
                                 .find((section) => section.mainHeading === activeMain)
-                                .subHeadings.map((sub) => (
+                                .subHeadings?.map((sub) => (
                                     <div key={sub.title} className="contact-us-subsection">
                                         <div
                                             className="contact-us-subtitle"
@@ -77,14 +95,16 @@ const ContactUs = () => {
                     </div>
 
                     {/* // Address Details // */}
-                    <div className="contact-us-address-details">
-                        <h3 className="contact-us-address-heading">{addressDetails.heading}</h3>
+                    {addressDetails && <div className="contact-us-address-details">
+                        <h3 className="contact-us-address-heading">Corporate Address :</h3>
                         <div className="contact-us-address-underline" />
-                        {addressDetails.AddressLines.map((line, idx) => (
-                            <p key={idx} className="contact-us-address-line">{line}</p>
-                        ))}
+                        <p className="contact-us-address-line">{addressDetails?.companyName}</p>
+                        <p className="contact-us-address-line">{addressDetails?.area+", "+addressDetails?.city}</p>
+                        <p className="contact-us-address-line">{addressDetails?.landmark+", "+addressDetails?.street}</p>
+                        <p className="contact-us-address-line">{addressDetails?.state+", "+addressDetails?.country+", "+addressDetails?.pinCode}</p>
+                        
                         <div className="contact-us-contact-line-container">
-                            {addressDetails.contactLines.map((item,index)=>(
+                            {addressDetails?.contactLines?.map((item,index)=>(
                                 <p className="contact-us-contact-line" key={index}>
                                     {item.startingLine}{' '}
                                     <span className="contact-us-highlight">{item.highlightLine}</span>
@@ -92,7 +112,8 @@ const ContactUs = () => {
                                 </p>
                             ))}
                         </div>
-                    </div>
+                    </div>}
+                    
 
 
                 </div>
@@ -102,3 +123,6 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
+
+
+

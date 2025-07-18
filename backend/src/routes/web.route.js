@@ -6,6 +6,7 @@ import {
     updateTopNav,
     updateBottomNav,
     getHomeData,
+    insertHomeData,
     updateHeader,
     updateImageSlider,
     updateProductSlider,
@@ -20,11 +21,13 @@ router.put("/navbar/top", updateTopNav);
 router.put("/navbar/bottom", updateBottomNav);
 
 // Home Routes
-router.get("/home", getHomeData);
-router.put("/home/header", updateHeader);
-router.put("/home/slider", updateImageSlider);
-router.put("/home/products", updateProductSlider);
-router.put("/home/trending", updateTrendingCategories);
-router.put("/home/ads", updateAdvertisementPanel);
+router.get("/get/home-data", getHomeData);
+router.post("/insert/home-data", insertHomeData);
+
+// router.put("/home/header", updateHeader);
+// router.put("/home/slider", updateImageSlider);
+// router.put("/home/products", updateProductSlider);
+// router.put("/home/trending", updateTrendingCategories);
+// router.put("/home/ads", updateAdvertisementPanel);
 
 export default router;

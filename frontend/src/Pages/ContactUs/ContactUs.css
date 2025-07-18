@@ -44,7 +44,7 @@
 
 .contact-us-subtitle {
     font-size: 16px;
-    margin: 16px 0;
+    margin:  16px 0;
     color: #333;
 }
 
@@ -177,6 +177,9 @@
     align-items: center;
     width: 300px;
     color: #000;
+}
+.contact-us-helping-details .contact-us-subtitle{
+    margin: 0;
 }
 
 .contact-us-sub-details {

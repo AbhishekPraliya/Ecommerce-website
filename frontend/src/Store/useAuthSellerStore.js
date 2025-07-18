@@ -9,10 +9,15 @@ export const useSellerStore = create((set,) => ({
     sellerList: [],
     sellerOrders: [],
     isLoading: false,
-    
+
     sellerBusiness: [],
     sellerProducts: [],
     
+    /////categories////////
+    categoryMap: {},
+    setCategoryMap: (data) => set({ categoryMap: data }),
+
+
 
     // createSeller: async (data) => {
     //     set({ isLoading: true });
@@ -112,6 +117,32 @@ export const useSellerStore = create((set,) => ({
             console.error("Failed to fetch seller products", err);
         }
     },
+
+
+    createOneProduct: async (productData) => {
+        try {
+            const res = await axiosInstance.post("/seller/create/one-product", productData);
+            console.log(res.data);
+            toast.success("Product created successfully!");
+        } catch (err) {
+            console.error(err);
+            toast.error("Failed to create product");
+        }
+    },
+
+    createMultipleProduct: async (productArray) => {
+        try {
+            const res = await axiosInstance.post("/seller/create/multiple-product", productArray);
+            console.log(res.data);
+            toast.success("Products uploaded successfully!");
+        } catch (err) {
+            console.error(err);
+            toast.error("Failed to upload products");
+        }
+    },
+
+
+
 
     // updatePaymentGatewayDetails: async (sellerId, data) => {
     //     try {

@@ -6,20 +6,20 @@ import {
     ChevronDown,
     ChevronUp,
 } from 'lucide-react';
-import productImage1 from '../../assets/product1.png';
-import productImage2 from '../../assets/product2.png';
-import productImage3 from '../../assets/product3.png';
+// import productImage1 from '../../../../assets/product1.png';
+// import productImage2 from '../../../../assets/product2.png';
+// import productImage3 from '../../../../assets/product3.png';
 
-const images = [
-    productImage1,
-    productImage2,
-    productImage3,
-    productImage1,
-    productImage2,
-    productImage3,
-];
+// const images = [
+//     productImage1,
+//     productImage2,
+//     productImage3,
+//     productImage1,
+//     productImage2,
+//     productImage3,
+// ];
 
-const ProductImageContainer = () => {
+const ProductImageContainer = ({images}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [thumbStart, setThumbStart] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
@@ -76,32 +76,22 @@ const ProductImageContainer = () => {
             )}
 
             <div className="main-img-section">
-                <div
-                    style={{
-                        userSelect: 'none',
-                        WebkitUserSelect: 'none', // Chrome, Safari
-                        MozUserSelect: 'none',    // Firefox
-                        msUserSelect: 'none'      // IE/Edge
-                    }}
+                <button
+                    style={{ outline: "none", border: "none" }}
                     className="side-arrow left" onClick={showPrevImage}>
                     <ChevronLeft className='side-arrow-icon'/>
-                </div>
+                </button>
 
                 <div
                     className="main-img-box"
                     style={{ backgroundImage: `url(${images[currentIndex]})` }}
                 ></div>
 
-                <div
-                    style={{
-                        userSelect: 'none',
-                        WebkitUserSelect: 'none', // Chrome, Safari
-                        MozUserSelect: 'none',    // Firefox
-                        msUserSelect: 'none'      // IE/Edge
-                    }}
+                <button
+                    style={{ outline: "none", border: "none" }}
                     className="side-arrow right" onClick={showNextImage}>
                     <ChevronRight className='side-arrow-icon'/>
-                </div>
+                </button>
 
                 {isMobile && (
                     <div className="thumb-list horizontal-scroll">

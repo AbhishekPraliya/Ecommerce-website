@@ -1,3 +1,10 @@
+.product-page-background-loading{
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+}
+
+
 /* Container wrapper */
 .product-box {
   width: 100%;

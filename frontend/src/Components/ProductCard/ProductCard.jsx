@@ -2,17 +2,41 @@ import './ProductCard.css';
 // import productImage from '../../assets/product-image2.png';
 import {useNavigate} from "react-router-dom"
 import { Heart } from 'lucide-react';
-// {discount
-// image
-// name
-// offer
-// originalPrice
-// price
-// rating
-// _id:"686cfe2bdb1feea26687fbd0"
-// }
+import { useUserStore } from '../../Store/useAuthUserStore';
+import {useAuthStore} from "../../Store/useAuthStore"
+import { useEffect, useState } from 'react';
+
 const ProductCard = ({product,WishListActive}) => {
     const navigate = useNavigate();
+    const {addProductIntoWishlist,userWishlist,deleteProductFromWishlist} = useUserStore();
+    const {authUser} = useAuthStore()
+    const [isProductInWishlist, setIsProductInWishlist] = useState(false);
+
+    const heandelAddToWishList = () => {
+        console.log("heandelAddToWishList");
+        if (!authUser) {
+            return navigate("/login");
+        }
+        
+        if (authUser.role === "user") {
+            console.log("heandelAddToWishList",product._id);
+            if(isProductInWishlist){
+                deleteProductFromWishlist(product._id);
+            }else{
+                addProductIntoWishlist(product._id);
+            }
+        } else {
+            console.warn("Only users can add products to wishlist.");
+            return;
+        }
+    };
+
+    useEffect(() => {
+        if (!authUser || !product?._id) return;
+
+        const isInWishlist = userWishlist.some((item) => item === product._id);
+        setIsProductInWishlist(isInWishlist);
+    }, [userWishlist, product?._id, authUser]);
 
     return (
         <div className={`product-card ${WishListActive?"":"hover-true"}`} onClick={()=>navigate(`/product/${product.name.toLowerCase().split(" ").join("-").split("'").join("")}--${product._id}`)}>
@@ -27,13 +51,14 @@ const ProductCard = ({product,WishListActive}) => {
                     <div
                         onClick={(e) => {
                             e.stopPropagation();
+                            heandelAddToWishList();
                         }}
                         className='product-details-icon-box'
                     >
                         <Heart
                             className='product-details-heart-icon'
-                            color={`${product.like?"red":"black"}`}
-                            fill={`${product.like?"red":"transparent"}`}
+                            color={`${isProductInWishlist?"red":"black"}`}
+                            fill={`${isProductInWishlist?"red":"transparent"}`}
                         />
                     </div>
                 </div>

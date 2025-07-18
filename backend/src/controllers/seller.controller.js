@@ -279,18 +279,53 @@ export const getSellerProducts = async (req, res) => {
     try {
         const businessId = req.user.business;
 
-        const products = await Product.find()
+        const products = await Product.find({ business: businessId })
             .select("image offer rating name price originalPrice discount likeNumbers business")
             .populate("business", "businessName") // Fetches business name only
+            .sort({ createdAt: -1 })
             .lean();
 
 
-        res.status(200).json( products );
+        res.status(200).json(products);
     } catch (error) {
         console.error("Error in getSellerProducts:", error);
         res.status(500).json({ success: false, message: "Failed to fetch products" });
     }
 };
+
+
+/////Create Products/////
+export const createOneProduct = async (req, res) => {
+    try {
+        const businessId = req.user.business;
+        console.log("create-many");
+        const product = new Product({ ...req.body, business: businessId });
+        const saved = await product.save();
+        console.log("create-one=", saved);
+        res.status(201).json(saved);
+    } catch (err) {
+        console.log("err", err);
+        res.status(500).json({ message: "Error creating product", error: err.message });
+    }
+};
+
+export const createMultipleProduct = async (req, res) => {
+    try {
+        const businessId = req.user.business;
+        // console.log("create-many");
+        const productsWithBusiness = req.body.map((prod) => ({
+            ...prod,
+            business: businessId,
+        }));
+        const created = await Product.insertMany(productsWithBusiness);
+        // console.log("create-many=");
+        res.status(201).json(created);
+    } catch (err) {
+        res.status(500).json({ message: "Error uploading products", error: err.message });
+    }
+};
+
+
 
 
 

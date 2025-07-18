@@ -16,6 +16,7 @@ export const protectRoute = async (req, res, next) => {
 
         req.user = decoded;
         req.userRole = decoded.role;
+        // console.log("req.user._id=",req.user._id);
 
         next();
     } catch (err) {

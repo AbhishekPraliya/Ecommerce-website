@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect} from 'react'
 import "./ProductListPage.css"
 import ProductCard from "../../Components/ProductCard/ProductCard.jsx"
-import { useAuthStore } from '../../Store/useAuthStore.js';
+import { useAuthStore } from '../../Store/useAuthStore.js'
 import { Pencil, Trash2 } from 'lucide-react';
 import {useSellerStore} from '../../Store/useAuthSellerStore.js'
 import {useWebNavStore} from '../../Store/useWebStores/useWebNavStore.js'
@@ -10,6 +10,8 @@ const ProductListPage = () => {
     const { fetchSellerProducts, sellerProducts } = useSellerStore();
     const { authUser } = useAuthStore();
 
+    // const [isProducts, setIsProducts] = useState(false);
+
     useEffect(() => {
         !sellerProducts.length && setIsLoadingComponent(true);
     },[setIsLoadingComponent,sellerProducts]);
@@ -17,12 +19,12 @@ const ProductListPage = () => {
         const handelFetchSellerProducts=async()=>{
             await fetchSellerProducts();
             setIsLoadingComponent(false);
-            console.log("sellerProducts",sellerProducts);
         }
-        // console.log("useEffect");
-        authUser && authUser.role==='seller'&& !sellerProducts.length && handelFetchSellerProducts();
+        // console.log("sellerProducts",sellerProducts);
+        
+        authUser && authUser.role==='seller' && handelFetchSellerProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchSellerProducts,sellerProducts,authUser])
+    }, [fetchSellerProducts,authUser])
     
 
     return (

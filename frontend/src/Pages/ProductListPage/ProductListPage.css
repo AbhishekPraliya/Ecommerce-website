@@ -47,12 +47,23 @@
   flex: 1;
   border: solid rgba(0, 0, 0, 0.672) 1px;
 }
+.product-card-box{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
 /* 4-column layout on large screens */
 @media (min-width: 1000px) {
   .product-list-container.product-list-item {
     grid-template-columns: repeat(4, 1fr);
   }
+  /* .product-card-box{ */
+    /* max-width: 23.55vw; */
+    /* overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; */
+  /* } */
 }
 
 /* 2-column layout on small screens */
@@ -62,7 +73,7 @@
     gap: 1vw;
     padding: 0.5vw;
   }
-  .product-card-box {
+  /* .product-card-box {
     width: 48vw;
-  }
+  } */
 }

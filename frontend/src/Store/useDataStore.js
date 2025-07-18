@@ -1,7 +1,37 @@
 /* eslint-disable no-unused-vars */
-import {create} from "zustand";
-export const useDataStore = create((set,get)=>({
-    products : [
+import { create } from "zustand";
+import { axiosInstance } from "../lib/axios.js";
+import { toast } from "react-hot-toast";
+
+
+export const useDataStore = create((set, get) => ({
+
+    productData: null,
+    loading: false,
+
+    getProductById: async (productId) => {
+        try {
+            set({ loading: true });
+
+            const res = await axiosInstance.get(`/product/${productId}`);
+            set({ productData: res.data, loading: false });
+        } catch (err) {
+            console.error("Error fetching product:", err);
+            set({ loading: false });
+        }
+    },
+    getMultipleProducts: async (productIds) => {
+        try {
+            const res = await axiosInstance.post("/product/multiple", { productIds });
+            // console.log("Fetched multiple products:", res.data);
+            return res.data;
+        } catch (err) {
+            console.error("Failed to fetch multiple products", err);
+        }
+    },
+
+
+    products: [
         {
             image: './product-image2.png',
             label: 'OVERSIZED FIT',
@@ -11,7 +41,7 @@ export const useDataStore = create((set,get)=>({
             price: '₹699',
             original: '₹2,249',
             discount: '68% off',
-            like:true,
+            like: true,
         },
         {
             image: './product-image2.png',
@@ -32,7 +62,7 @@ export const useDataStore = create((set,get)=>({
             price: '₹449',
             original: '₹1,349',
             discount: '66% off',
-            like:true,
+            like: true,
         },
         {
             image: './product-image2.png',
@@ -53,7 +83,7 @@ export const useDataStore = create((set,get)=>({
             price: '₹699',
             original: '₹2,249',
             discount: '68% off',
-            like:true,
+            like: true,
         },
         {
             image: './product-image2.png',

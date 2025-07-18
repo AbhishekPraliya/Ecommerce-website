@@ -57,29 +57,38 @@ export const updateBottomNav = async (req, res) => {
 };
 
 // ─── Home Controllers ─
+// ─── GET Home Data ────────────────────────────────────────────────
 export const getHomeData = async (req, res) => {
     try {
-        const doc = await getOrCreateWebsiteDoc();
-        const {
-            headerImage,
-            headerText,
-            imageSlider,
-            productSlider,
-            trendingCategories,
-            advertisementPanel,
-        } = doc;
-        res.json({
-            headerImage,
-            headerText,
-            imageSlider,
-            productSlider,
-            trendingCategories,
-            advertisementPanel,
-        });
+        const website = await WebsiteData.findOne().populate("homeData.data.productSlider").populate("homeData.data.trendingCategories.category");
+        if (!website) return res.status(404).json({ message: "Website data not found" });
+        res.json({ homeData: website.homeData });
     } catch (err) {
-        res.status(500).json({ message: "Failed to get homepage data" });
+        res.status(500).json({ message: "Error fetching home data", error: err.message });
     }
 };
+
+// ─── INSERT/UPDATE Home Data ─────────────────────────────────────
+export const insertHomeData = async (req, res) => {
+    try {
+        const { homeData } = req.body;
+        console.log(req.body);
+        let website = await WebsiteData.findOne();
+
+        if (!website) {
+            website = new WebsiteData({ homeData });
+        } else {
+            website.homeData = homeData;
+        }
+
+        await website.save();
+        res.json({ message: "Home data saved successfully", homeData: website.homeData });
+    } catch (err) {
+        res.status(500).json({ message: "Error saving home data", error: err.message });
+    }
+};
+
+
 
 export const updateHeader = async (req, res) => {
     try {

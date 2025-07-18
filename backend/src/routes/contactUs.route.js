@@ -1,28 +1,33 @@
 import express from 'express';
 import {
+    editAboutUsContent,
+    getAboutUsData,
     getContactUsData,
+    insertAddressDetails,
     insertHelpingDetails,
-    deleteHelpingDetailsWithMainHeading,
-    deleteAllHelpingDetails,
-    changeAddressDetailsHeading,
-    changeAddressDetailsAddressLines,
-    deleteAddressDetailsAddressLines,
-    changeAddressDetailsContactLines,
-    deleteAddressDetailsContactLines,
+    updateAboutUsMiddleData,
+    updateFooterHighlights,
+    getPrivacyPolicyData,
+    insertPrivacyPolicyData,
 } from '../controllers/contactUs.controller.js';
 
 const router = express.Router();
 
+//// contactUs routes ////
 router.get('/data', getContactUsData);
-router.post('/insert/hd', insertHelpingDetails);
-router.delete('/main-heading/:mainHeading', deleteHelpingDetailsWithMainHeading);
-router.delete('/hd/all', deleteAllHelpingDetails);
+router.post('/insert/help-data', insertHelpingDetails);
+router.post('/insert/address-details', insertAddressDetails);
 
-router.patch('/ad/heading', changeAddressDetailsHeading);
-router.patch('/ad/address', changeAddressDetailsAddressLines);
-router.delete('/ad/address', deleteAddressDetailsAddressLines);
+//// aboutUs routes ////
+router.get('/about-us', getAboutUsData);
+router.put('/about-us/content', editAboutUsContent);
+router.put('/about-us/middle', updateAboutUsMiddleData);
+router.put('/about-us/footer', updateFooterHighlights);
 
-router.patch('/ad/contact', changeAddressDetailsContactLines);
-router.delete('/ad/contact', deleteAddressDetailsContactLines);
+//// PrivacyPolicy ////
+router.get("/privacy-policy/get", getPrivacyPolicyData);
+router.post("/privacy-policy/insert", insertPrivacyPolicyData);
+
+
 
 export default router;

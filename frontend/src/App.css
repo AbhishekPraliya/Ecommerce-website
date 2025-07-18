@@ -37,3 +37,8 @@ div{
   background-color: white;
   color: #333;
 }
+
+
+.main{
+  min-height: 100vh;
+}

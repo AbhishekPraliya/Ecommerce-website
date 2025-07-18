@@ -13,8 +13,14 @@ const ContactUsSchema = new mongoose.Schema({
         },
     ],
     addressDetails: {
-        heading: { type: String },
-        AddressLines: [String],
+        companyName: { type: String },
+        country: { type: String, },
+        pinCode: { type: String },
+        city: { type: String },
+        state: { type: String },
+        street: { type: String },   // building/street name
+        area: { type: String },     // locality
+        landmark: { type: String },
         contactLines: [
             {
                 startingLine: String,
@@ -22,8 +28,9 @@ const ContactUsSchema = new mongoose.Schema({
                 endingLine: String,
             },
         ],
+        
     },
-});
+    });
 
 const ContactUs = mongoose.model('ContactUs', ContactUsSchema);
 export default ContactUs;

@@ -13,6 +13,8 @@ import {
     getSeller,
     insertFakeProducts,
     getSellerProducts,
+    createOneProduct,
+    createMultipleProduct,
 } from "../controllers/seller.controller.js";
 import {protectRoute} from "../middleware/auth.middleware.js"
 const router = express.Router();
@@ -27,10 +29,17 @@ router.get("/orders/:sellerId", getOrdersDetails);
 router.get("/business/:sellerId", getBusiness);
 router.post("/business/create",protectRoute ,createBusiness);
 router.put("/gateway/:sellerId", updatePaymentGatewayDetails);
-router.put("/insert/Fake/Product", insertFakeProducts);
+router.put("/insert/fake/product", insertFakeProducts);
 // insertFakeProducts();
 
-
+// get seller products
 router.get("/get/products",protectRoute, getSellerProducts);
+
+// create products
+router.post("/create/one-product", protectRoute, createOneProduct);
+router.post("/create/multiple-product", protectRoute, createMultipleProduct);
+
+
+
 
 export default router;

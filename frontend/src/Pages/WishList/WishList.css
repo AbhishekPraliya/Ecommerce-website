@@ -57,6 +57,12 @@
         grid-template-columns: repeat(4, 1fr);
     }
 }
+/* 5-column layout on small screens */
+@media (min-width: 1200px) {
+    .product-list-container.wish-list-item{
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
 /* 2-column layout on small screens */
 @media (max-width: 800px) {
     .product-list-container {
